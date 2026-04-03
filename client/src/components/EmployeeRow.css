@@ -1,0 +1,27 @@
+td:first-child {
+  display: flex;
+  gap: 20px;
+}
+
+.avatar {
+  width: 40px;
+  border-radius: 50%;
+  background-color: #fff2ea;
+  text-align: center;
+}
+
+.menu {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  font-size: 12px;
+  border: 1px solid black;
+  border-radius: 10px;
+  gap: 10px;
+  width: 8%;
+  padding: 5px;
+  background-color: white;
+  margin-left: -120px;
+  margin-top: -30px;
+}

@@ -1,0 +1,40 @@
+.sidebar {
+  width: 20%;
+  height: 100vh;
+  background-color: #d9d9d9;
+  color: rgb(0, 0, 0);
+  padding: 20px;
+}
+
+.logo {
+  display: flex;
+  height: 15%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar a {
+  color: #000000;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.sidebar a:hover {
+  background-color: #a7a7a7;
+}
+
+.sidebar .active {
+  background-color: #a7a7a7;
+  color: white;
+}
+
+nav {
+  margin-top: 20px;
+}
