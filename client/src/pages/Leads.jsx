@@ -1,19 +1,15 @@
+import "/src/styles/leads.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../components/Layout";
-import LeadTable from "../components/LeadTable";
 import CSVUpload from "../components/CSVUpload";
 
 function Leads() {
   const [leads, setLeads] = useState([]);
 
-  const fetchLeads = () => {
-    axios
-      .get("http://localhost:5000/leads")
-      .then((res) => {
-        setLeads(res.data.data || res.data);
-      })
-      .catch((err) => console.log(err));
+  const fetchLeads = async () => {
+    const res = await axios.get("http://localhost:5000/leads");
+    setLeads(res.data);
   };
 
   useEffect(() => {
@@ -22,14 +18,33 @@ function Leads() {
 
   return (
     <Layout>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h2>Leads</h2>
-
-        {/* 🔥 CSV Upload */}
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <CSVUpload refresh={fetchLeads} />
       </div>
 
-      <LeadTable leads={leads} refresh={fetchLeads} />
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Source</th>
+            <th>Location</th>
+            <th>Language</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {leads.map((lead) => (
+            <tr key={lead._id}>
+              <td>{lead.name}</td>
+              <td>{lead.email}</td>
+              <td>{lead.source}</td>
+              <td>{lead.location}</td>
+              <td>{lead.language}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </Layout>
   );
 }

@@ -1,17 +1,18 @@
 const express = require("express");
 const router = express.Router();
+
+const {
+  uploadCSV,
+  getLeads,
+  updateLead,
+} = require("../controllers/leadController");
+
 const multer = require("multer");
 
-const { uploadCSV } = require("../controllers/leadController");
-
-// storage config
 const upload = multer({ dest: "uploads/" });
 
-// 📥 CSV Upload Route
 router.post("/upload", upload.single("file"), uploadCSV);
-
-router.get("/", (req, res) => {
-  res.send("Lead route working");
-});
+router.get("/", getLeads);
+router.put("/:id", updateLead);
 
 module.exports = router;

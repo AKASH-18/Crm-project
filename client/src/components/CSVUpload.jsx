@@ -3,45 +3,36 @@ import axios from "axios";
 
 function CSVUpload({ refresh }) {
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const uploadFile = async () => {
-    if (!file) return alert("Select CSV file");
+  const handleUpload = async () => {
+    if (!file) {
+      alert("Select CSV file");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      setLoading(true);
+      await axios.post("http://localhost:5000/leads/upload", formData);
 
-      await axios.post("http://localhost:5000/leads/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      alert("CSV uploaded successfully");
+      alert("Upload successful ✅");
       setFile(null);
-      refresh();
+      refresh(); // 🔥 important
     } catch (err) {
       console.log(err);
-      alert("Upload failed");
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
-      <input type="file" accept=".csv" onChange={handleFileChange} />
+      <input
+        type="file"
+        accept=".csv"
+        onChange={(e) => setFile(e.target.files[0])}
+      />
 
-      <button onClick={uploadFile} disabled={loading}>
-        {loading ? "Uploading..." : "Upload CSV"}
-      </button>
+      <button onClick={handleUpload}>Upload CSV</button>
     </div>
   );
 }

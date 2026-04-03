@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "../../src/styles/leads.css";
 
 function LeadRow({ lead, refresh }) {
   const [type, setType] = useState(lead.type || "");
@@ -8,7 +9,7 @@ function LeadRow({ lead, refresh }) {
   const updateLead = async () => {
     await axios.put(`http://localhost:5000/leads/${lead._id}`, {
       type,
-      scheduledDate
+      scheduledDate,
     });
 
     refresh();
@@ -25,10 +26,7 @@ function LeadRow({ lead, refresh }) {
 
       {/* 🔥 Status Dropdown */}
       <td>
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-        >
+        <select value={type} onChange={(e) => setType(e.target.value)}>
           <option value="">Select</option>
           <option value="Hot">Hot</option>
           <option value="Warm">Warm</option>

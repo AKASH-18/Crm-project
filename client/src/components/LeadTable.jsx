@@ -1,29 +1,31 @@
-import LeadRow from "./LeadRow";
+import "../../src/styles/leads.css";
 
-function LeadTable({ leads, refresh }) {
-  return (
-    <table style={{ width: "100%", marginTop: "20px" }}>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Source</th>
-          <th>Date</th>
-          <th>Location</th>
-          <th>Language</th>
-          <th>Status</th>
-          <th>Assigned To</th>
-        </tr>
-      </thead>
+<table className="lead-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Source</th>
+      <th>Location</th>
+      <th>Language</th>
+      <th>Status</th>
+    </tr>
+  </thead>
 
-      <tbody>
-        {Array.isArray(leads) &&
-          leads.map((lead) => (
-            <LeadRow key={lead._id} lead={lead} refresh={refresh} />
-          ))}
-      </tbody>
-    </table>
-  );
-}
+  <tbody>
+    {leads.map((lead) => (
+      <tr key={lead._id}>
+        <td>{lead.name}</td>
+        <td>{lead.email}</td>
+        <td>{lead.source}</td>
+        <td>{lead.location}</td>
+        <td>{lead.language}</td>
+        <td>
+          <span className="status-badge">{lead.status}</span>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>;
 
 export default LeadTable;
