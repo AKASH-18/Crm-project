@@ -1,4 +1,4 @@
-import "../../src/styles/leads.css";
+import "/src/styles/leads.css";
 
 <table className="lead-table">
   <thead>

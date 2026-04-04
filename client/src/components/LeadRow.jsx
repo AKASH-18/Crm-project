@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "../../src/styles/leads.css";
+import "/src/styles/leads.css";
 
 function LeadRow({ lead, refresh }) {
   const [type, setType] = useState(lead.type || "");
@@ -16,7 +16,7 @@ function LeadRow({ lead, refresh }) {
   };
 
   return (
-    <tr>
+    <tr className="data-row">
       <td>{lead.name}</td>
       <td>{lead.email}</td>
       <td>{lead.source}</td>

@@ -44,6 +44,9 @@ function Leads() {
             </tr>
           ))}
         </tbody>
+        <div class="pagination-wrap">
+          <div class="pagination" id="pagination-controls"></div>
+        </div>
       </table>
     </Layout>
   );

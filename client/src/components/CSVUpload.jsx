@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "/src/styles/leads.css";
 
 function CSVUpload({ refresh }) {
   const [file, setFile] = useState(null);

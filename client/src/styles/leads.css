@@ -1,31 +1,75 @@
-body {
-  background: lightyellow;
-}
-.lead-table {
+table {
   width: 100%;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
+  border-collapse: separate;
+  border-spacing: 0 12px; /* Gap between rows */
+  font-size: 0.9rem;
 }
 
-.lead-table thead {
-  background-color: #f10f0f;
+/* ========== HEADER STYLES ========== */
+table thead tr {
+  background: transparent;
 }
 
-.lead-table th,
-.lead-table td {
-  padding: 12px;
+table th {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+  background: transparent;
+  padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #e21a1a;
+  border-bottom: 2px solid #cbd5e1; /* Only bottom border on header */
+  white-space: nowrap;
 }
 
-.lead-table tr:hover {
-  background-color: #f9f9f9;
+table th:first-child {
+  padding-left: 1.5rem;
 }
 
-.status-badge {
-  background-color: #e3f2fd;
-  color: #1976d2;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 12px;
+table th:last-child {
+  padding-right: 1.5rem;
+}
+
+/* ========== ROW STYLES - NO VERTICAL LINES ========== */
+table tbody tr {
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+/* Each cell: ONLY top and bottom borders - NO left/right borders */
+table td {
+  padding: 1rem 1rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  border-left: none; /* NO vertical line on left */
+  border-right: none; /* NO vertical line on right */
+  color: #1e293b;
+  white-space: nowrap;
+}
+
+/* Add left/right borders ONLY to first and last cell to close the box */
+table td:first-child {
+  border-left: 1px solid #e2e8f0;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+table td:last-child {
+  border-right: 1px solid #e2e8f0;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Hover effect for rows */
+table tbody tr:hover td {
+  background-color: #fafbff;
+  border-color: #cbd5e6;
+}
+
+button {
+  border: 1px solid black;
+  padding: 5px 15px;
+  border-radius: 10px;
 }
