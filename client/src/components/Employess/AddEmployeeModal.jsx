@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "./AddEmployeeModal.css";
+import "../../styles/employees.css";
 function AddEmployeeModal({ show, onClose, refresh }) {
   const [form, setForm] = useState({
     firstName: "",

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import EmployeeRow from "./EmployeeRow";
-import "./EmployeeTable.css";
+import "../../styles/employees.css";
 
 function EmployeeTable({ users, selected, setSelected, deleteUser }) {
   const [currentPage, setCurrentPage] = useState(1);

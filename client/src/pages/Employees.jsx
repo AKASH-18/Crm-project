@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../components/Layout";
-import EmployeeTable from "../components/EmployeeTable";
-import AddEmployeeModal from "../components/AddEmployeeModal";
+import EmployeeTable from "../components/Employess/EmployeeTable";
+import AddEmployeeModal from "../components/Employess/AddEmployeeModal";
 
 function Employees() {
   const [users, setUsers] = useState([]);

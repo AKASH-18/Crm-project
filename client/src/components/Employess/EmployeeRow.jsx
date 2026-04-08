@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./EmployeeRow.css";
+import "../../styles/employees.css";
 
 function EmployeeRow({ user, selected, handleSelect, deleteUser }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +31,7 @@ function EmployeeRow({ user, selected, handleSelect, deleteUser }) {
         </span>
       </td>
 
-      <td >
+      <td>
         <button onClick={() => setMenuOpen(!menuOpen)}>⋮</button>
 
         {menuOpen && (
