@@ -1,0 +1,40 @@
+/* MAIN CONTAINER */
+.admin-container {
+  display: flex;
+  height: 100vh; /* 🔥 FULL HEIGHT */
+  width: 100%;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #1e293b;
+  color: white;
+  height: 100vh;
+}
+
+/* RIGHT SIDE */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* TOPBAR */
+.topbar {
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* CONTENT AREA */
+.admin-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f9fafb;
+}

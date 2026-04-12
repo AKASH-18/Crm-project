@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "/src/styles/leads.css";
+import "../../../styles/admin/leads.css";
 
 function CSVUpload({ onUploadSuccess }) {
   const [showModal, setShowModal] = useState(false);

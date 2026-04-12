@@ -1,0 +1,47 @@
+/* BUTTONS */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.profile-form label {
+  display: block; /* puts label on its own line */
+  margin-bottom: 6px; /* small gap below label */
+  font-weight: 600; /* optional: make labels stand out */
+}
+
+.profile-form input {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 2px;
+  border-radius: 10px;
+  border: 2px solid #000000;
+  background: #2563eb;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background: #2563eb;
+  color: rgb(192, 6, 6);
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  width: 48%;
+}
+
+.logout-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  width: 48%;
+}

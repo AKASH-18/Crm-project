@@ -1,0 +1,45 @@
+@import url(../variables.css);
+
+.schedule-top {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.schedule-top input {
+  width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: var(--dark-gray);
+  width: 100%;
+}
+
+.schedule-top button {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--dark-gray);
+  border: none;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  cursor: pointer;
+}
+
+.schedule-card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--dark-gray);
+  width: 100%;
+  margin-bottom: 10px;
+}

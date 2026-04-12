@@ -1,48 +1,111 @@
 const Lead = require("../models/Lead");
 const User = require("../models/User");
 
-// 📊 Get Dashboard Stats
-exports.getDashboardStats = async (req, res) => {
+// 📊 DASHBOARD DATA
+exports.getDashboardData = async (req, res) => {
   try {
-    // 1. Unassigned Leads
-    const unassignedLeads = await Lead.countDocuments({
+    // 🔹 Unassigned Leads
+    const unassigned = await Lead.countDocuments({
       assignedTo: null,
     });
 
-    // 2. Assigned This Week
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    // 🔹 Assigned This Week
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - 7);
 
     const assignedThisWeek = await Lead.countDocuments({
-      createdAt: { $gte: oneWeekAgo },
+      createdAt: { $gte: startOfWeek },
+      assignedTo: { $ne: null },
     });
 
-    // 3. Active Sales People
-    const activeUsers = await User.countDocuments({
+    // 🔹 Active Employees
+    const activeEmployees = await User.countDocuments({
+      role: "user",
       status: "Active",
     });
 
-    // 4. Conversion Rate
-    const totalAssigned = await Lead.countDocuments({
-      assignedTo: { $exists: true },
-    });
-
+    // 🔹 Conversion Rate
+    const totalLeads = await Lead.countDocuments();
     const closedLeads = await Lead.countDocuments({
       status: "Closed",
     });
 
     const conversionRate =
-      totalAssigned === 0
-        ? 0
-        : ((closedLeads / totalAssigned) * 100).toFixed(2);
+      totalLeads === 0 ? 0 : Math.round((closedLeads / totalLeads) * 100);
+
+    // 📈 GRAPH DATA (last 14 days)
+    const graph = [];
+
+    for (let i = 13; i >= 0; i--) {
+      const day = new Date();
+      day.setDate(day.getDate() - i);
+
+      const nextDay = new Date(day);
+      nextDay.setDate(day.getDate() + 1);
+
+      const count = await Lead.countDocuments({
+        createdAt: {
+          $gte: day,
+          $lt: nextDay,
+        },
+      });
+
+      graph.push({
+        date: day.toLocaleDateString("en-US", { weekday: "short" }),
+        count,
+      });
+    }
+
+    // 📌 RECENT ACTIVITY (last 3)
+    const recentLeads = await Lead.find()
+      .sort({ updatedAt: -1 })
+      .limit(3)
+      .populate("assignedTo", "name");
+
+    const activity = recentLeads.map((lead) => {
+      if (lead.status === "Closed") {
+        return `Deal closed by ${lead.assignedTo?.name || "Unknown"}`;
+      } else {
+        return `Lead assigned to ${lead.assignedTo?.name || "Unassigned"}`;
+      }
+    });
+
+    // 👨‍💼 TOP 5 EMPLOYEES
+    const employees = await User.find({ role: "user", status: "Active" }).limit(
+      5,
+    );
+
+    const employeeData = await Promise.all(
+      employees.map(async (emp) => {
+        const assigned = await Lead.countDocuments({
+          assignedTo: emp._id,
+          status: "Ongoing",
+        });
+
+        const closed = await Lead.countDocuments({
+          assignedTo: emp._id,
+          status: "Closed",
+        });
+
+        return {
+          ...emp._doc,
+          assigned,
+          closed,
+        };
+      }),
+    );
 
     res.json({
-      unassignedLeads,
+      unassigned,
       assignedThisWeek,
-      activeUsers,
+      activeEmployees,
       conversionRate,
+      graph,
+      activity,
+      employees: employeeData,
     });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.log(err);
+    res.status(500).json({ error: "Dashboard error" });
   }
 };

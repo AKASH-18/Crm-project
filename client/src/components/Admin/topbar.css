@@ -1,0 +1,24 @@
+@import url("../../styles/variables.css");
+
+.topbar {
+  display: flex;
+  min-width: 100%;
+  height: 15vh;
+
+  border-bottom: 1px solid black;
+}
+
+.search {
+  width: 100%;
+  background: var(--primary-gray);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--primary-gray);
+}
+
+.topbar-search {
+  margin-left: auto;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}

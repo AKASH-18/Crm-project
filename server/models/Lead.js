@@ -10,16 +10,15 @@ const leadSchema = new mongoose.Schema({
 
   assignedTo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
 
   status: {
     type: String,
-    default: "Ongoing"
+    default: "Ongoing",
   },
-
   type: String,
-  scheduledDate: String
+  scheduledDate: String,
 });
 
 module.exports = mongoose.model("Lead", leadSchema);

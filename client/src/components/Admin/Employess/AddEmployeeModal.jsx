@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "../../styles/employees.css";
+import "../../../styles/admin/employees.css";
 function AddEmployeeModal({ show, onClose, refresh }) {
   const [form, setForm] = useState({
     firstName: "",
@@ -17,12 +17,19 @@ function AddEmployeeModal({ show, onClose, refresh }) {
   };
 
   const submit = async () => {
-    await axios.post("http://localhost:5000/users", {
-      name: form.firstName + " " + form.lastName,
-      email: form.email,
-      location: form.location,
-      language: form.language,
-    });
+    try {
+      await axios.post("http://localhost:5000/users", {
+        name: form.firstName + " " + form.lastName,
+        email: form.email,
+        location: form.location,
+        language: form.language,
+      });
+
+      alert("Employee created ✅");
+    } catch (err) {
+      console.log(err);
+      alert("Error creating employee ❌");
+    }
 
     refresh();
     onClose();
@@ -33,7 +40,7 @@ function AddEmployeeModal({ show, onClose, refresh }) {
       <div className="modal">
         <h3>Add Employee</h3>
         <div>
-          <h3>Name</h3>
+          <h3>First Name</h3>
           <input
             name="firstName"
             onChange={handleChange}
@@ -62,7 +69,7 @@ function AddEmployeeModal({ show, onClose, refresh }) {
           />
         </div>
         <div>
-          <h3>Language</h3>
+          <h3>Preferred Language</h3>
           <input
             name="language"
             onChange={handleChange}

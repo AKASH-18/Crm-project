@@ -1,6 +1,5 @@
 import { useState } from "react";
-import "../../styles/employees.css";
-
+import "../../../styles/admin/employees.css";
 function EmployeeRow({ user, selected, handleSelect, deleteUser }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -12,7 +11,7 @@ function EmployeeRow({ user, selected, handleSelect, deleteUser }) {
           checked={selected.includes(user._id)}
           onChange={() => handleSelect(user._id)}
         />
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "5px" }}>
           <div className="avatar">{user.name.charAt(0)}</div>
           <div>
             <div>{user.name}</div>

@@ -1,0 +1,244 @@
+.mobile-container {
+  max-width: 400px;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+
+
+/*EmployeeHome */
+
+/* 🔵 HEADER */
+.home-header {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  padding: 20px;
+  border-radius: 0 0 20px 20px;
+}
+
+.home-header span {
+  color: yellow;
+}
+
+/* SECTION */ 
+.section {
+  margin-top: 15px;
+}
+
+/* TIMING CARD */
+.timing-card {
+  background: #2563eb;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* HISTORY */
+.timing-history {
+  background: #e5e7eb;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+/* ACTIVITY */
+.activity-box {
+  background: #e5e7eb;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+
+.lead-item {
+  background: #f3f4f6;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* LEFT CONTENT */
+.lead-left h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.lead-left p {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 2px 0;
+}
+
+.lead-left span {
+  font-size: 12px;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.lead-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.lead-actions button {
+  background: transparent;
+  border: 2px solid #2563eb;
+  color: #2563eb;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.lead-actions button:hover {
+  background: #2563eb;
+  color: white;
+}
+.popup {
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  background: white;
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 170px;
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup h4 {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.type-options button {
+  width: 100%;
+  margin: 5px 0;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+}
+
+.hot {
+  background: #f97316;
+  color: white;
+}
+
+.warm {
+  background: #facc15;
+  color: black;
+}
+
+.cold {
+  background: #06b6d4;
+  color: white;
+}
+.popup input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.popup button {
+  width: 100%;
+  background: #111827;
+  color: white;
+  padding: 7px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* TOP */
+.schedule-top {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+/* FILTER BUTTON */
+.filter-btn {
+  background: #e5e7eb;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* FILTER POPUP */
+.filter-popup {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  z-index: 10;
+}
+
+.filter-popup select {
+  width: 100%;
+  margin: 8px 0;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+/* CARD */
+.schedule-card {
+  background: #f3f4f6;
+  padding: 14px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+}
+
+/* ACTIVE BLUE CARD */
+.schedule-card.active {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+}
+
+/* ROWS */
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.row.small {
+  font-size: 12px;
+}
+
+.row.user {
+  font-size: 13px;
+}

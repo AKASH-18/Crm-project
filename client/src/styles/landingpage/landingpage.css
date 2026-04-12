@@ -1,0 +1,74 @@
+@import url(../variables.css);
+
+.landing-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: var(--secondary-color);
+  gap: 40px;
+}
+
+.admin-login {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: var(--secondary-color);
+  gap: 30px;
+}
+
+.employee-login {
+  max-width: 480px;
+  height: 100vh;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: var(--secondary-color);
+  gap: 20px;
+}
+
+.employee-login > button {
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+.employee-login > input {
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.admin-login > input {
+  width: 30%;
+  height: 40px;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.admin-login > button {
+  width: 30%;
+  height: 40px;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.landing-page > span {
+  color: #e8e000;
+}
+
+input,
+button {
+  color: var(--text-gray);
+}

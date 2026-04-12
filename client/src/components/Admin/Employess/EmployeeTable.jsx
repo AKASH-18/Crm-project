@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import EmployeeRow from "./EmployeeRow";
-import "../../styles/employees.css";
+import "../../../styles/admin/employees.css";
 
 function EmployeeTable({ users, selected, setSelected, deleteUser }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 8;
+  const usersPerPage = 7;
   const [selectAll, setSelectAll] = useState(false);
 
   const indexOfLast = currentPage * usersPerPage;
@@ -63,8 +63,8 @@ function EmployeeTable({ users, selected, setSelected, deleteUser }) {
       </table>
 
       {/* Pagination */}
-      <div>
-        <button
+      <div className="pagination">
+        <button className="left-button"
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((p) => p - 1)}
         >
@@ -75,7 +75,7 @@ function EmployeeTable({ users, selected, setSelected, deleteUser }) {
             {i + 1}
           </button>
         ))}
-        <button
+        <button className="right-button"
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage((p) => p + 1)}
         >

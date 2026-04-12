@@ -1,39 +1,41 @@
 const User = require("../models/User");
+const Lead = require("../models/Lead");
 
-// store pointer per language
-const pointerMap = {};
+const assignLead = async (language) => {
+  // 🔥 find employees with same language
+  const users = await User.find({
+    role: "user",
+    language: language,
+  });
 
-const assignLead = async (lead) => {
-  const users = await User.find({ language: lead.language });
-
-  if (!users.length) return null;
-
-  // initialize pointer
-  if (!pointerMap[lead.language]) {
-    pointerMap[lead.language] = 0;
+  if (users.length === 0) {
+    console.log("❌ No users found for language:", language);
+    return null;
   }
 
-  let attempts = 0;
+  let selectedUser = null;
+  let minCount = Infinity;
 
-  while (attempts < users.length) {
-    const index = pointerMap[lead.language] % users.length;
-    const user = users[index];
+  for (let user of users) {
+    const count = await Lead.countDocuments({
+      assignedTo: user._id,
+    });
 
-    // check threshold
-    if (user.assignedLeads < 3) {
-      user.assignedLeads += 1;
-      await user.save();
-
-      pointerMap[lead.language]++;
+    // ✅ first priority: less than 3 leads
+    if (count < 3) {
+      console.log("✅ Assigned (<3):", user._id);
       return user._id;
     }
 
-    pointerMap[lead.language]++;
-    attempts++;
+    // ✅ fallback: least loaded
+    if (count < minCount) {
+      minCount = count;
+      selectedUser = user._id;
+    }
   }
 
-  // fallback (if all full)
-  return users[0]._id;
+  console.log("✅ Assigned (fallback):", selectedUser);
+  return selectedUser;
 };
 
 module.exports = assignLead;
