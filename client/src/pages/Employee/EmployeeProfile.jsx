@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import EmployeeLayout from "../../components/Employee/EmployeeLayout";
-import "../../styles/Employee/employeerofile.css";
+import "../../styles/Employee/employeeprofile.css";
 
 function EmployeeProfile() {
   const user = JSON.parse(localStorage.getItem("user"));
