@@ -46,5 +46,10 @@ const createAdmin = async () => {
     console.log("✅ Default Admin Created");
   }
 };
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
+});
 
 createAdmin();
