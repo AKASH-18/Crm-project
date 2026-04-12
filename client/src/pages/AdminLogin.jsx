@@ -35,7 +35,7 @@ function AdminLogin({ setUser }) {
       <h2>
         Canova<span>CRM</span>
       </h2>
-      <h2>Admin Login</h2>
+      <h2>Admin Loginn</h2>
 
       <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
 
