@@ -18,12 +18,15 @@ function AddEmployeeModal({ show, onClose, refresh }) {
 
   const submit = async () => {
     try {
-      await axios.post("http://localhost:5000/users", {
-        name: form.firstName + " " + form.lastName,
-        email: form.email,
-        location: form.location,
-        language: form.language,
-      });
+      await axios.post(
+        "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);",
+        {
+          name: form.firstName + " " + form.lastName,
+          email: form.email,
+          location: form.location,
+          language: form.language,
+        },
+      );
 
       alert("Employee created ✅");
     } catch (err) {

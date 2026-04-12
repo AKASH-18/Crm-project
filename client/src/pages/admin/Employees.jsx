@@ -11,7 +11,7 @@ function Employees() {
 
   const fetchUsers = () => {
     axios
-      .get("http://localhost:5000/users/with-leads")
+      .get("axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/with-leads")
       .then((res) => setUsers(res.data));
   };
 
@@ -22,10 +22,10 @@ function Employees() {
   const deleteUser = async (id) => {
     if (selected.length > 0) {
       await Promise.all(
-        selected.map((id) => axios.delete(`http://localhost:5000/users/${id}`)),
+        selected.map((id) => axios.delete(`axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/${id}`)),
       );
     } else {
-      await axios.delete(`http://localhost:5000/users/${id}`);
+      await axios.delete(`axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/${id}`);
     }
 
     setSelected([]);

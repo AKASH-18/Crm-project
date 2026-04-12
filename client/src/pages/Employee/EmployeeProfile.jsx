@@ -24,12 +24,15 @@ function EmployeeProfile() {
       return;
     }
 
-    await axios.put("http://localhost:5000/users/update-profile", {
-      name: form.firstName + " " + form.lastName,
-      email: form.email,
-      password: form.password,
-      userId: user._id,
-    });
+    await axios.put(
+      "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/update-profile",
+      {
+        name: form.firstName + " " + form.lastName,
+        email: form.email,
+        password: form.password,
+        userId: user._id,
+      },
+    );
 
     alert("Profile updated ✅");
   };

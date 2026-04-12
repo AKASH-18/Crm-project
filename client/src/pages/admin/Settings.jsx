@@ -20,10 +20,13 @@ function Settings() {
       return;
     }
 
-    await axios.put("http://localhost:5000/users/update-profile", {
-      email: form.email,
-      password: form.password,
-    });
+    await axios.put(
+      "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/update-profile",
+      {
+        email: form.email,
+        password: form.password,
+      },
+    );
 
     alert("Updated successfully ✅");
   };
