@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Layout from "../../components/Admin/Layout";
 import "../../styles/admin/dashboard.css";
+import API from "../../api";
 
 function Dashboard() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/dashboard").then((res) => {
-      setData(res.data);
-    });
+    const fetchDashboard = async () => {
+      try {
+        const res = await API.get("/api/dashboard");
+        setData(res.data);
+      } catch (err) {
+        console.log("FETCH ERROR:", err);
+      }
+    };
+
+    fetchDashboard();
   }, []);
 
   if (!data) return <p>Loading...</p>;
@@ -18,13 +25,6 @@ function Dashboard() {
     data.graph && data.graph.some((g) => g.count > 0)
       ? data.graph
       : [
-          { date: "Mon", count: 3 },
-          { date: "Tue", count: 6 },
-          { date: "Wed", count: 4 },
-          { date: "Thu", count: 8 },
-          { date: "Fri", count: 5 },
-          { date: "Sat", count: 7 },
-          { date: "Sun", count: 2 },
           { date: "Mon", count: 3 },
           { date: "Tue", count: 6 },
           { date: "Wed", count: 4 },
@@ -47,12 +47,10 @@ function Dashboard() {
 
         {/* 🔥 GRAPH + ACTIVITY */}
         <div className="middle">
-          {/* GRAPH */}
           <div className="graph">
             <h3>Sale Analytics</h3>
 
             <div className="graph-container">
-              {/* 🔥 Y AXIS */}
               <div className="y-axis">
                 <span>100%</span>
                 <span>75%</span>
@@ -62,8 +60,6 @@ function Dashboard() {
               </div>
 
               <div className="bars">
-                {/* dummy data for testing */}
-
                 {graphData.map((g, i) => (
                   <div key={i} className="bar-wrapper">
                     <div
@@ -74,21 +70,9 @@ function Dashboard() {
                   </div>
                 ))}
               </div>
-
-              {/*------------------------- real  data from backned dont delete this
-              {data.graph.map((g, i) => (
-                <div key={i} className="bar-wrapper">
-                  <div
-                    className="bar-fill"
-                    style={{ height: `${g.count * 15}px` }}
-                  />
-                  <span>{g.date}</span>
-                </div>  
-              ))}*/}
             </div>
           </div>
 
-          {/* ACTIVITY */}
           <div className="activity">
             <h3>Recent Activity Feed</h3>
 
@@ -100,7 +84,6 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* 🔥 EMPLOYEE TABLE */}
         <div className="employee-section">
           <div className="table-scroll">
             <table className="emp-table">
@@ -119,7 +102,9 @@ function Dashboard() {
                   <tr key={e._id}>
                     <td>
                       <div className="emp-info">
-                        <div className="avatar">{e.name.charAt(0)}</div>
+                        <div className="avatar">
+                          {e.name?.charAt(0)}
+                        </div>
                         <div>
                           <p>{e.name}</p>
                           <small>{e.email}</small>

@@ -1,42 +1,51 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Layout from "../../components/Admin/Layout";
 import EmployeeTable from "../../components/Admin/Employess/EmployeeTable";
 import AddEmployeeModal from "../../components/Admin/Employess/AddEmployeeModal";
+import API from "../../api";
 
 function Employees() {
   const [users, setUsers] = useState([]);
   const [selected, setSelected] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const fetchUsers = () => {
-    axios
-      .get("axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/with-leads")
-      .then((res) => setUsers(res.data));
+  // ✅ FETCH USERS
+  const fetchUsers = async () => {
+    try {
+      const res = await API.get("/api/users/with-leads");
+      setUsers(res.data);
+    } catch (err) {
+      console.log("FETCH ERROR:", err);
+    }
   };
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
+  // ✅ DELETE USERS
   const deleteUser = async (id) => {
-    if (selected.length > 0) {
-      await Promise.all(
-        selected.map((id) => axios.delete(`axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/${id}`)),
-      );
-    } else {
-      await axios.delete(`axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/${id}`);
-    }
+    try {
+      if (selected.length > 0) {
+        await Promise.all(
+          selected.map((uid) => API.delete(`/api/users/${uid}`))
+        );
+      } else {
+        await API.delete(`/api/users/${id}`);
+      }
 
-    setSelected([]);
-    fetchUsers();
+      setSelected([]);
+      fetchUsers();
+    } catch (err) {
+      console.log("DELETE ERROR:", err);
+    }
   };
 
   return (
     <Layout>
       {(search) => {
         const filteredUsers = users.filter((u) =>
-          u.name.toLowerCase().includes(search.toLowerCase()),
+          u.name.toLowerCase().includes(search.toLowerCase())
         );
 
         return (
@@ -49,6 +58,7 @@ function Employees() {
               }}
             >
               <h4>Employees</h4>
+
               <button
                 onClick={() => setShowModal(true)}
                 style={{
@@ -66,7 +76,6 @@ function Employees() {
               refresh={fetchUsers}
             />
 
-            {/* ✅ ONLY ONE TABLE */}
             <EmployeeTable
               users={filteredUsers}
               selected={selected}

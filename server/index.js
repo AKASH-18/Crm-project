@@ -5,31 +5,26 @@ require("dotenv").config();
 
 const app = express();
 
-console.log("RUNNING NEW SERVER FILE 🚀");
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Routes
 const userRoutes = require("./routes/userRoutes");
-app.use("/users", userRoutes);
-
-// 🔥 ROUTES
 const leadRoutes = require("./routes/leadRoutes");
-app.use("/leads", leadRoutes);
-
 const dashboardRoutes = require("./routes/dashboardRoutes");
-app.use("/dashboard", dashboardRoutes);
 
-// DB connect
+app.use("/api/users", userRoutes);
+app.use("/api/leads", leadRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+
+// MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
+  .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.log(err));
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
-
+// Create Default Admin
 const User = require("./models/User");
 
 const createAdmin = async () => {
@@ -46,10 +41,11 @@ const createAdmin = async () => {
     console.log("✅ Default Admin Created");
   }
 };
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+// Start Server
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, async () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  await createAdmin();
 });
-
-createAdmin();

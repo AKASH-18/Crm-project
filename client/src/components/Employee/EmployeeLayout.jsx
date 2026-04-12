@@ -1,12 +1,18 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../styles/Employee/layout.css";
 
-function EmployeeLayout({ children, title }) {
+function EmployeeLayout({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔥 AUTO DETECT ROUTE
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.error("Invalid user data");
+  }
+
   const path = location.pathname;
 
   let headerTitle = "";
@@ -14,8 +20,9 @@ function EmployeeLayout({ children, title }) {
   if (path === "/employee-dashboard") {
     headerTitle = (
       <>
-        <p>Good Morning</p> <br />
-        {user?.name || ""}
+        <p>Good Morning</p>
+        <br />
+        {user?.name || "Employee"}
       </>
     );
   } else if (path === "/employee-leads") {
@@ -35,8 +42,9 @@ function EmployeeLayout({ children, title }) {
             Canova<span>CRM</span>
           </h2>
         </div>
+
         <div className="path">
-          <h2>{headerTitle}</h2> {/* ✅ UPDATED */}
+          <h2>{headerTitle}</h2>
         </div>
       </div>
 
@@ -47,7 +55,7 @@ function EmployeeLayout({ children, title }) {
       <div className="bottom-bar">
         <div
           className={
-            location.pathname === "/employee-dashboard"
+            path === "/employee-dashboard"
               ? "nav-item active"
               : "nav-item"
           }
@@ -59,7 +67,7 @@ function EmployeeLayout({ children, title }) {
 
         <div
           className={
-            location.pathname === "/employee-leads"
+            path === "/employee-leads"
               ? "nav-item active"
               : "nav-item"
           }
@@ -71,7 +79,7 @@ function EmployeeLayout({ children, title }) {
 
         <div
           className={
-            location.pathname === "/employee-schedule"
+            path === "/employee-schedule"
               ? "nav-item active"
               : "nav-item"
           }
@@ -83,7 +91,7 @@ function EmployeeLayout({ children, title }) {
 
         <div
           className={
-            location.pathname === "/employee-profile"
+            path === "/employee-profile"
               ? "nav-item active"
               : "nav-item"
           }

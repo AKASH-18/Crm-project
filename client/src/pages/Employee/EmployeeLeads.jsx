@@ -1,7 +1,7 @@
 import EmployeeLayout from "../../components/Employee/EmployeeLayout";
 import { useEffect, useState } from "react";
 import "../../styles/Employee/leads.css";
-import axios from "axios";
+import API from "../../api";
 
 function EmployeeLeads() {
   const [leads, setLeads] = useState([]);
@@ -9,15 +9,23 @@ function EmployeeLeads() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.error("Invalid user data");
+  }
 
   // ✅ FETCH LEADS
   const fetchLeads = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/leads/my/${user._id}`);
+      if (!user?._id) return;
+
+      const res = await API.get(`/api/leads/my/${user._id}`);
       setLeads(res.data);
     } catch (err) {
-      console.log(err);
+      console.log("FETCH ERROR:", err);
     }
   };
 
@@ -28,26 +36,21 @@ function EmployeeLeads() {
   // ✅ UPDATE LEAD
   const updateLead = async (id, data) => {
     try {
-      console.log("SENDING:", data); // ✅ DEBUG
-
-      await axios.put(`http://localhost:5000/leads/${id}`, data);
-
-      await fetchLeads(); // 🔥 IMPORTANT (await)
+      await API.put(`/api/leads/${id}`, data);
+      await fetchLeads();
     } catch (err) {
       console.log("UPDATE ERROR:", err);
     }
   };
+
   return (
     <EmployeeLayout title="Leads">
       <div className="lead-page">
-        {" "}
-        {/* 🔍 SEARCH */}
         <input className="search" placeholder="Search" />
-        {/* 📋 LEADS */}
+
         <div className="lead-container">
           {leads.map((lead) => (
             <div className="lead-item" key={lead._id}>
-              {/* LEFT */}
               <div className="lead-left">
                 <div className="lead-info">
                   <h4>{lead.name}</h4>
@@ -58,7 +61,6 @@ function EmployeeLeads() {
                 </div>
               </div>
 
-              {/* 🔵 STATUS CIRCLE */}
               <div className="right-card">
                 <div
                   className={`status-circle ${
@@ -70,23 +72,19 @@ function EmployeeLeads() {
                   {lead.status}
                 </div>
 
-                {/* 🔥 ACTION ICONS */}
                 <div className="lead-actions">
-                  {/* TYPE */}
                   <button
                     onClick={() => setPopup({ type: "type", id: lead._id })}
                   >
                     ✏️
                   </button>
 
-                  {/* DATE */}
                   <button
                     onClick={() => setPopup({ type: "date", id: lead._id })}
                   >
                     ⏰
                   </button>
 
-                  {/* STATUS */}
                   <button
                     onClick={() => setPopup({ type: "status", id: lead._id })}
                   >
@@ -94,83 +92,62 @@ function EmployeeLeads() {
                   </button>
                 </div>
               </div>
-              {/* 🔥 POPUPS */}
+
               {popup?.id === lead._id && (
                 <div className="popup">
-                  {/* TYPE */}
                   {popup.type === "type" && (
                     <>
                       <h4>Type</h4>
-
                       <div className="type-options">
-                        <button
-                          className="hot"
-                          onClick={() => {
-                            updateLead(lead._id, { type: "Hot" });
-                            setPopup(null);
-                          }}
-                        >
-                          Hot
-                        </button>
-
-                        <button
-                          className="warm"
-                          onClick={() => {
-                            updateLead(lead._id, { type: "Warm" });
-                            setPopup(null);
-                          }}
-                        >
-                          Warm
-                        </button>
-
-                        <button
-                          className="cold"
-                          onClick={() => {
-                            updateLead(lead._id, { type: "Cold" });
-                            setPopup(null);
-                          }}
-                        >
-                          Cold
-                        </button>
+                        {["Hot", "Warm", "Cold"].map((t) => (
+                          <button
+                            key={t}
+                            onClick={() => {
+                              updateLead(lead._id, { type: t });
+                              setPopup(null);
+                            }}
+                          >
+                            {t}
+                          </button>
+                        ))}
                       </div>
                     </>
                   )}
 
-                  {/* DATE */}
-                  <div className="date-box">
-                    {popup.type === "date" && (
-                      <>
-                        <h4>Date</h4>
+                  {popup.type === "date" && (
+                    <>
+                      <h4>Date</h4>
 
-                        <input
-                          type="date"
-                          onChange={(e) => setDate(e.target.value)}
-                        />
+                      <input
+                        type="date"
+                        onChange={(e) => setDate(e.target.value)}
+                      />
 
-                        <input
-                          type="time"
-                          onChange={(e) => setTime(e.target.value)}
-                        />
+                      <input
+                        type="time"
+                        onChange={(e) => setTime(e.target.value)}
+                      />
 
-                        <button
-                          onClick={() => {
-                            if (!date || !time) {
-                              alert("Select date & time");
-                              return;
-                            }
+                      <button
+                        onClick={() => {
+                          if (!date || !time) {
+                            alert("Select date & time");
+                            return;
+                          }
 
-                            updateLead(lead._id, {
-                              scheduledDate: `${date} ${time}`,
-                              type: "Scheduled",
-                            });
-                          }}
-                        >
-                          Save
-                        </button>
-                      </>
-                    )}
-                  </div>
-                  {/* STATUS */}
+                          updateLead(lead._id, {
+                            scheduledDate: `${date} ${time}`,
+                            type: "Scheduled",
+                          });
+
+                          setPopup(null);
+                        }}
+                      >
+                        Save
+                      </button>
+                    </>
+                  )}
+
                   {popup.type === "status" && (
                     <>
                       <h4>Lead Status</h4>
@@ -180,7 +157,7 @@ function EmployeeLeads() {
                       <button
                         onClick={() => {
                           if (lead.scheduledDate) {
-                            alert("Lead can not be closed");
+                            alert("Lead cannot be closed");
                             return;
                           }
 
@@ -191,7 +168,7 @@ function EmployeeLeads() {
                         Closed
                       </button>
 
-                      <button onClick={() => setPopup(null)}>Save</button>
+                      <button onClick={() => setPopup(null)}>Cancel</button>
                     </>
                   )}
                 </div>

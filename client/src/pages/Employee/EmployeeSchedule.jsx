@@ -1,24 +1,30 @@
 import EmployeeLayout from "../../components/Employee/EmployeeLayout";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import "../../styles/Employee/schedule.css";
+import API from "../../api";
 
 function EmployeeSchedule() {
   const [leads, setLeads] = useState([]);
   const [filter, setFilter] = useState("all");
   const [showFilter, setShowFilter] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.error("Invalid user data");
+  }
 
   // ✅ FETCH SCHEDULED LEADS
   const fetchSchedule = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/leads/schedule/${user._id}`,
-      );
+      if (!user?._id) return;
+
+      const res = await API.get(`/api/leads/schedule/${user._id}`);
       setLeads(res.data);
     } catch (err) {
-      console.log(err);
+      console.log("FETCH ERROR:", err);
     }
   };
 
@@ -39,7 +45,6 @@ function EmployeeSchedule() {
 
   return (
     <EmployeeLayout title="Schedule">
-      {/* 🔍 SEARCH + FILTER */}
       <div className="schedule-top">
         <input className="search" placeholder="Search" />
 
@@ -50,12 +55,14 @@ function EmployeeSchedule() {
           ⚙️
         </button>
 
-        {/* 🔥 FILTER POPUP */}
         {showFilter && (
           <div className="filter-popup">
             <h4>Filter</h4>
 
-            <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            >
               <option value="today">Today</option>
               <option value="all">All</option>
             </select>
@@ -65,32 +72,29 @@ function EmployeeSchedule() {
         )}
       </div>
 
-      {/* 📋 CARDS */}
       <div className="schedule-cards">
         {filteredLeads.map((lead, index) => (
           <div
             key={lead._id}
             className={`schedule-card ${index === 0 ? "active" : ""}`}
           >
-            {/* TOP */}
             <div className="row">
               <h4>{lead.source}</h4>
               <span>
-                {lead.scheduledDate ? lead.scheduledDate.split(" ")[0] : ""}
+                {lead.scheduledDate
+                  ? lead.scheduledDate.split(" ")[0]
+                  : ""}
               </span>
             </div>
 
-            {/* PHONE */}
             <div className="row">
               <p>{lead.phone || lead.email}</p>
             </div>
 
-            {/* CALL */}
             <div className="row small">
               <p>📍 Call</p>
             </div>
 
-            {/* USER */}
             <div className="row user">
               <p>👤 {lead.name}</p>
             </div>

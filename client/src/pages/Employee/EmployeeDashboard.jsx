@@ -1,12 +1,18 @@
 import EmployeeLayout from "../../components/Employee/EmployeeLayout";
 
 function EmployeeDashboard() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.error("Invalid user data in localStorage");
+  }
 
   return (
     <EmployeeLayout>
       <div>
-        <h3>Welcome back, {user?.name}</h3>
+        <h3>Welcome back, {user?.name || "User"}</h3>
 
         {/* QUICK STATS */}
         <div className="stats">

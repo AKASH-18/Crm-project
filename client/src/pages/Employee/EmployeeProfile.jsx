@@ -1,15 +1,21 @@
 import { useState } from "react";
-import axios from "axios";
 import EmployeeLayout from "../../components/Employee/EmployeeLayout";
 import "../../styles/Employee/employeeprofile.css";
+import API from "../../api";
 
 function EmployeeProfile() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.error("Invalid user data");
+  }
 
   const [form, setForm] = useState({
-    firstName: user.name.split(" ")[0],
-    lastName: user.name.split(" ")[1] || "",
-    email: user.email,
+    firstName: user?.name?.split(" ")[0] || "",
+    lastName: user?.name?.split(" ")[1] || "",
+    email: user?.email || "",
     password: "",
     confirmPassword: "",
   });
@@ -19,22 +25,24 @@ function EmployeeProfile() {
   };
 
   const save = async () => {
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+    try {
+      if (form.password !== form.confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
 
-    await axios.put(
-      "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/update-profile",
-      {
+      await API.put("/api/users/update-profile", {
         name: form.firstName + " " + form.lastName,
         email: form.email,
         password: form.password,
-        userId: user._id,
-      },
-    );
+        userId: user?._id,
+      });
 
-    alert("Profile updated ✅");
+      alert("Profile updated ✅");
+    } catch (err) {
+      console.error("UPDATE ERROR:", err);
+      alert("Update failed ❌");
+    }
   };
 
   const logout = () => {

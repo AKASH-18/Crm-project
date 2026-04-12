@@ -1,35 +1,44 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/landingpage/landingpage.css";
+import API from "../api";
 
 function AdminLogin({ setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const login = () => {
-    // 🔥 ONLY ONE ADMIN
-    if (email === "admin@gmail.com" && password === "admin123") {
-      const admin = {
-        role: "admin",
+  const login = async () => {
+    try {
+      const res = await API.post("/api/users/login", {
         email,
-      };
+        password,
+      });
 
-      localStorage.setItem("user", JSON.stringify(admin));
-      setUser(admin);
+      if (res.data.role !== "admin") {
+        alert("Not authorized as admin");
+        return;
+      }
+
+      localStorage.setItem("user", JSON.stringify(res.data));
+      setUser(res.data);
 
       navigate("/dashboard");
-    } else {
-      alert("Invalid admin credentials");
+    } catch (err) {
+      console.error(err);
+      alert("Login failed");
     }
   };
 
-  return (  
+  return (
     <div className="admin-login">
-      <h2>Canova<span>CRM</span></h2>
+      <h2>
+        Canova<span>CRM</span>
+      </h2>
       <h2>Admin Login</h2>
 
       <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+
       <input
         placeholder="Password"
         type="password"

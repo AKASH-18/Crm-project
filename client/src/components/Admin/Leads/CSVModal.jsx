@@ -8,7 +8,7 @@ function CSVModal({ onClose }) {
     const formData = new FormData();
     formData.append("file", file);
 
-    await axios.post("http://localhost:5000/leads/upload", formData);
+    axios.post(`${API}/api/users/login`, data);
     window.location.reload();
   };
 

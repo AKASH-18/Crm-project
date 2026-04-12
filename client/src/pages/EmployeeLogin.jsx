@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../../api";
 
 function EmployeeLogin({ setUser }) {
   const [email, setEmail] = useState("");
@@ -9,31 +9,33 @@ function EmployeeLogin({ setUser }) {
 
   const login = async () => {
     try {
-      const res = await axios.post(
-        "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/login",
-        {
-          email,
-          password,
-        },
-      );
+      const res = await API.post("/api/users/login", {
+        email,
+        password,
+      });
 
       localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
 
       navigate("/employee-dashboard");
     } catch (err) {
+      console.error(err);
       alert("Invalid employee credentials");
     }
   };
 
   return (
-    <div className=" employee-login">
+    <div className="employee-login">
       <h2>
         Canova<span>CRM</span>
       </h2>
       <h2>Employee Login</h2>
 
-      <input onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+      <input
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+      />
+
       <input
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"

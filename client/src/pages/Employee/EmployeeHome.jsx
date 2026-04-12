@@ -1,17 +1,21 @@
 import EmployeeLayout from "../../components/Employee/EmployeeLayout";
 
-
 function EmployeeHome() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.error("Invalid user data");
+  }
 
   return (
     <EmployeeLayout title="">
-      
       {/* 🔵 HEADER DESIGN */}
       <div className="home-header">
         <h2>Canova<span>CRM</span></h2>
         <p>Good Morning</p>
-        <h3>{user.name}</h3>
+        <h3>{user?.name || "Employee"}</h3>
       </div>
 
       {/* ⏱ TIMINGS */}
@@ -59,7 +63,6 @@ function EmployeeHome() {
           </ul>
         </div>
       </div>
-
     </EmployeeLayout>
   );
 }

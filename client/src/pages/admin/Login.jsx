@@ -1,24 +1,30 @@
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import API from "../api";
 
 function Login({ setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
-      const res = await axios.post(
-        "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/login",
-        {
-          email,
-          password,
-        },
-      );
+      const res = await API.post("/api/users/login", {
+        email,
+        password,
+      });
 
       localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
+
+      // 🔥 redirect based on role
+      if (res.data.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/employee-dashboard");
+      }
     } catch (err) {
-      console.log(err.response?.data);
+      console.error(err);
       alert("Login failed");
     }
   };
@@ -27,7 +33,10 @@ function Login({ setUser }) {
     <div style={{ padding: "50px" }}>
       <h2>Login</h2>
 
-      <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+      <input
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
       <input
         placeholder="Password"

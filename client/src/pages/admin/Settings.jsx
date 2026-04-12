@@ -1,11 +1,19 @@
 import { useState } from "react";
-import axios from "axios";
 import Layout from "../../components/Admin/Layout";
 import "../../styles/admin/setting.css";
+import API from "../../api";
 
 function Settings() {
+  let user = null;
+
+  try {
+    user = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.error("Invalid user data");
+  }
+
   const [form, setForm] = useState({
-    email: "",
+    email: user?.email || "",
     password: "",
     confirmPassword: "",
   });
@@ -15,21 +23,25 @@ function Settings() {
   };
 
   const handleSave = async () => {
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+    try {
+      if (form.password !== form.confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
 
-    await axios.put(
-      "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);/update-profile",
-      {
+      await API.put("/api/users/update-profile", {
         email: form.email,
         password: form.password,
-      },
-    );
+        userId: user?._id,
+      });
 
-    alert("Updated successfully ✅");
+      alert("Updated successfully ✅");
+    } catch (err) {
+      console.error("UPDATE ERROR:", err);
+      alert("Update failed ❌");
+    }
   };
+
   const logout = () => {
     localStorage.clear();
     window.location.href = "/";

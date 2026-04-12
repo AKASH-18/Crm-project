@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+import "../../styles/employee/leads.css";
+import API from "../../api";
 
 function LeadCard({ lead, refresh }) {
   const [type, setType] = useState(lead.type || "");
@@ -8,13 +9,17 @@ function LeadCard({ lead, refresh }) {
   const [showDate, setShowDate] = useState(false);
 
   // 🔥 UPDATE FUNCTION
- const updateLead = async (data) => {
-  console.log("SENDING:", data);
+  const updateLead = async (data) => {
+    try {
+      console.log("SENDING:", data);
 
-  await axios.put(`http://localhost:5000/leads/${lead._id}`, data);
+      await API.put(`/api/leads/${lead._id}`, data);
 
-  refresh();
-};
+      refresh();
+    } catch (err) {
+      console.error("UPDATE ERROR:", err);
+    }
+  };
 
   return (
     <div className="lead-item">
@@ -25,12 +30,14 @@ function LeadCard({ lead, refresh }) {
         <span>{lead.date}</span>
       </div>
 
-      {/* STATUS CIRCLE */}
-      <div className={`status-circle ${status.toLowerCase()}`}>{status}</div>
+      {/* STATUS */}
+      <div className={`status-circle ${status?.toLowerCase()}`}>
+        {status}
+      </div>
 
-      {/* 🔥 ACTION BUTTONS */}
+      {/* ACTION BUTTONS */}
       <div className="action-row">
-        {/* 1️⃣ TYPE */}
+        {/* TYPE */}
         <select
           value={type}
           onChange={(e) => {
@@ -44,14 +51,13 @@ function LeadCard({ lead, refresh }) {
           <option value="Cold">Cold</option>
         </select>
 
-        {/* 2️⃣ DATE */}
+        {/* DATE */}
         <button onClick={() => setShowDate(!showDate)}>📅</button>
 
-        {/* 3️⃣ STATUS */}
+        {/* STATUS */}
         <select
           value={status}
           onChange={(e) => {
-            // ❌ Prevent closing if scheduled
             if (lead.scheduledDate && e.target.value === "Closed") {
               alert("Cannot close scheduled lead");
               return;
@@ -66,7 +72,7 @@ function LeadCard({ lead, refresh }) {
         </select>
       </div>
 
-      {/* 📅 DATE INPUT */}
+      {/* DATE INPUT */}
       {showDate && (
         <div className="date-box">
           <input
@@ -76,7 +82,10 @@ function LeadCard({ lead, refresh }) {
 
           <button
             onClick={() => {
-              console.log("SAVING DATE:", date); // debug
+              if (!date) {
+                alert("Select date & time");
+                return;
+              }
 
               updateLead({
                 scheduledDate: date,

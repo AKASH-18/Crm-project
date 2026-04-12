@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "../../../styles/admin/employees.css";
+import API from "../../../api";
 
 function LeadRow({ lead, refresh }) {
   const [type, setType] = useState(lead.type || "");
@@ -8,7 +9,7 @@ function LeadRow({ lead, refresh }) {
 
   const updateLead = async () => {
     try {
-      await axios.put(`http://localhost:5000/leads/${lead._id}`, {
+      await axios.put(`${API}/leads/${lead._id}`, {
         type,
         scheduledDate,
       });

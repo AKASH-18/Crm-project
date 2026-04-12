@@ -1,43 +1,38 @@
-import { Link, useLocation } from "react-router-dom";
-import "./Sidebar.css";
+import { useLocation } from "react-router-dom";
+import "./topbar.css";
 
-function Sidebar() {
+function Topbar({ search, setSearch }) {
   const location = useLocation();
 
+  const showSearch =
+    location.pathname.includes("/employees") ||
+    location.pathname.includes("/leads");
+
+  let title = "Dashboard";
+
+  if (location.pathname.includes("employees")) title = "Employees";
+  if (location.pathname.includes("leads")) title = "Leads";
+
   return (
-    <div className="sidebar">
-      <div className="logo">
-        <h2 className="">CanovaCRM</h2>
+    <div className="topbar">
+      {/* LEFT SIDE */}
+      <div>
+        {!showSearch && <h3>{title}</h3>}
+
+        {showSearch && (
+          <input
+            type="text"
+            placeholder="Search..."
+            className="search"
+            value={search || ""}
+            onChange={(e) => {
+              if (setSearch) setSearch(e.target.value);
+            }}
+          />
+        )}
       </div>
-
-      <nav>
-        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
-          Dashboard
-        </Link>
-
-        <Link
-          to="/employees"
-          className={location.pathname === "/employees" ? "active" : ""}
-        >
-          Employees
-        </Link>
-
-        <Link
-          to="/leads"
-          className={location.pathname === "/leads" ? "active" : ""}
-        >
-          Leads
-        </Link>
-
-        <Link
-          to="/settings"
-          className={location.pathname === "/settings" ? "active" : ""}
-        >
-          Settings
-        </Link>
-      </nav>
     </div>
   );
 }
 
-export default Sidebar;
+export default Topbar;
