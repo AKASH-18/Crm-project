@@ -27,15 +27,15 @@ function EmployeeSchedule() {
   }, []);
 
   // ✅ FILTER LOGIC
-const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0];
 
-const filteredLeads =
-  filter === "today"
-    ? leads.filter((l) => {
-        if (!l.scheduledDate) return false;
-        return l.scheduledDate.split(" ")[0] === today;
-      })
-    : leads;
+  const filteredLeads =
+    filter === "today"
+      ? leads.filter((l) => {
+          if (!l.scheduledDate) return false;
+          return l.scheduledDate.split(" ")[0] === today;
+        })
+      : leads;
 
   return (
     <EmployeeLayout title="Schedule">
