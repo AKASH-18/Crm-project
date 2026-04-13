@@ -2,6 +2,7 @@ import EmployeeLayout from "../../components/Employee/EmployeeLayout";
 import { useEffect, useState } from "react";
 import "../../styles/Employee/schedule.css";
 import API from "../../api";
+import { location } from "../../assets/employee/images";
 
 function EmployeeSchedule() {
   const [leads, setLeads] = useState([]);
@@ -92,7 +93,10 @@ function EmployeeSchedule() {
                 </div>
 
                 <div className="row small">
-                  <p>📍 Call</p>
+                  <p>
+                    <img src={location} alt="" />
+                    Call
+                  </p>
                 </div>
 
                 <div className="row user">
@@ -101,7 +105,6 @@ function EmployeeSchedule() {
               </div>
             ))}
           </div>
-       
         </div>
       </div>
     </EmployeeLayout>

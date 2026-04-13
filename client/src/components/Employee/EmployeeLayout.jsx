@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../styles/Employee/layout.css";
+import { home, leads, profile, schedule } from "../../assets/employee/images";
 
 function EmployeeLayout({ children }) {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ function EmployeeLayout({ children }) {
           onClick={() => navigate("/employee-dashboard")}
         >
           <span>
-            <img src="../../assets/employee/chart-2.png" alt="" />
+            <img src={home} alt="" />
           </span>
           <p>Home</p>
         </div>
@@ -72,7 +73,7 @@ function EmployeeLayout({ children }) {
         >
           <span>
             {" "}
-            <img src="../../assets/employee/vector.png" alt="" />
+            <img src={leads} alt="" />
           </span>
           <p>Leads</p>
         </div>
@@ -85,7 +86,7 @@ function EmployeeLayout({ children }) {
         >
           <span>
             {" "}
-            <img src="../../assets/employee/calendar-line 1.png" alt="" />
+            <img src={schedule} alt="" />
           </span>
           <p>Schedule</p>
         </div>
@@ -98,7 +99,7 @@ function EmployeeLayout({ children }) {
         >
           <span>
             {" "}
-            <img src="../../assets/employee/vector (1).png" alt="" />
+            <img src={profile} alt="" />
           </span>
           <p>Profile</p>
         </div>

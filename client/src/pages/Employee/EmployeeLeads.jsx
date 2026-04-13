@@ -2,6 +2,7 @@ import EmployeeLayout from "../../components/Employee/EmployeeLayout";
 import { useEffect, useState } from "react";
 import "../../styles/Employee/leads.css";
 import API from "../../api";
+import { typeicon, status, dateicon } from "../../assets/employee/images";
 
 function EmployeeLeads() {
   const [leads, setLeads] = useState([]);
@@ -66,7 +67,7 @@ function EmployeeLeads() {
                     <button
                       onClick={() => setPopup({ type: "type", id: lead._id })}
                     >
-                      <img src="../../assets/employee/vector (2).png" alt="" />
+                      <img src={typeicon} alt="type" />
                     </button>
 
                     {popup?.id === lead._id && popup.type === "type" && (
@@ -94,7 +95,7 @@ function EmployeeLeads() {
                     <button
                       onClick={() => setPopup({ type: "date", id: lead._id })}
                     >
-                      ⏰
+                      <img src={dateicon} alt="" />
                     </button>
 
                     {popup?.id === lead._id && popup.type === "date" && (
@@ -136,7 +137,7 @@ function EmployeeLeads() {
                     <button
                       onClick={() => setPopup({ type: "status", id: lead._id })}
                     >
-                      ⬇️
+                      <img src={status} alt="" />
                     </button>
 
                     {popup?.id === lead._id && popup.type === "status" && (

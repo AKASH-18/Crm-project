@@ -99,35 +99,41 @@ function EmployeeDashboard() {
             Break
           </button>
         </div>
-
-        {/* BREAK TABLE */}
-        <table className="break-table">
-          <thead>
-            <tr>
-              <th>Break</th>
-              <th>Ended</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {log?.breaks?.map((b, i) => (
-              <tr key={i}>
-                <td>{b.start}</td>
-                <td>{b.end || "--"}</td>
-                <td>{b.date}</td>
+        <div className="break-tablediv">
+          {/* BREAK TABLE */}
+          <table className="break-table">
+            <thead>
+              <tr>
+                <th>Break</th>
+                <th>Ended</th>
+                <th>Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {[...Array(4)].map((_, i) => {
+                const b = log?.breaks?.[i];
+
+                return (
+                  <tr key={i}>
+                    <td>{b?.start || "--:--"}</td>
+                    <td>{b?.end || "--:--"}</td>
+                    <td>{b?.date || "--/--/----"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
 
         {/* ACTIVITY */}
         <div className="activity">
           <h4>Recent Activity</h4>
-
-          {activities.map((a, i) => (
-            <p key={i}>• {a}</p>
-          ))}
+          <div className="recent-activityfeed">
+            {activities.map((a, i) => (
+              <p key={i}>• {a}</p>
+            ))}
+          </div>
         </div>
       </div>
     </EmployeeLayout>

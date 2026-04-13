@@ -2,8 +2,11 @@ const mongoose = require("mongoose");
 
 const timeLogSchema = new mongoose.Schema({
   userId: String,
+  date: String, // 🔥 ADD THIS
+
   checkIn: String,
   checkOut: String,
+
   breaks: [
     {
       start: String,

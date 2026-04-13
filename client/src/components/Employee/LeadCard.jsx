@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "../../styles/employee/leads.css";
 import API from "../../api";
-
 function LeadCard({ lead, refresh }) {
   const [type, setType] = useState(lead.type || "");
   const [status, setStatus] = useState(lead.status);
@@ -31,28 +30,28 @@ function LeadCard({ lead, refresh }) {
       </div>
 
       {/* STATUS */}
-      <div className={`status-circle ${status?.toLowerCase()}`}>
-        {status}
-      </div>
+      <div className={`status-circle ${status?.toLowerCase()}`}>{status}</div>
 
       {/* ACTION BUTTONS */}
       <div className="action-row">
         {/* TYPE */}
-        <select
-          value={type}
-          onChange={(e) => {
-            setType(e.target.value);
-            updateLead({ type: e.target.value });
-          }}
-        >
-          <option value="">Type</option>
-          <option value="Hot">Hot</option>
-          <option value="Warm">Warm</option>
-          <option value="Cold">Cold</option>
-        </select>
+        <div className="select-with-icon">
+          <select
+            value={type}
+            onChange={(e) => {
+              setType(e.target.value);
+              updateLead({ type: e.target.value });
+            }}
+          >
+            <option value="">Type</option>
+            <option value="Hot">Hot</option>
+            <option value="Warm">Warm</option>
+            <option value="Cold">Cold</option>
+          </select>
+        </div>
 
         {/* DATE */}
-        <button onClick={() => setShowDate(!showDate)}>📅</button>
+        <button onClick={() => setShowDate(!showDate)}></button>
 
         {/* STATUS */}
         <select

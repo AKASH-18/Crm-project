@@ -1,8 +1,10 @@
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
 const app = express();
+
+const timeRoutes = require("./routes/timeRoutes");
+require("dotenv").config();
 
 // Middleware
 app.use(
@@ -20,6 +22,7 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/leads", leadRoutes);
+app.use("/api/time", timeRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
 // MongoDB Connection
@@ -53,6 +56,3 @@ app.listen(PORT, async () => {
   console.log(`🚀 Server running on port ${PORT}`);
   await createAdmin();
 });
-
-const timeRoutes = require("./routes/timeRoutes");
-app.use("/api/time", timeRoutes);

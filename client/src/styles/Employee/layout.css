@@ -41,7 +41,7 @@
 .nav-item {
   text-align: center;
   font-size: 12px;
-  color: gray;
+  color: rgb(0, 0, 0);
 }
 
 .nav-item span {
@@ -50,6 +50,17 @@
 }
 
 .nav-item.active {
-  color: black;
+  color: rgb(67, 7, 235);
   font-weight: bold;
+  background: white;
+}
+
+.nav-item img {
+  width: 20px;
+  transition: 0.3s;
+}
+
+.nav-item.active img {
+  filter: brightness(0) saturate(100%) invert(32%) sepia(98%) saturate(2000%)
+    hue-rotate(200deg);
 }
