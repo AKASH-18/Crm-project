@@ -8,7 +8,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       {/* LOGO */}
-      <h2 className="logo">CanovaCRM</h2>
+      <h2 className="logo">Canova<span>CRM</span></h2>
 
       {/* MENU */}
       <div

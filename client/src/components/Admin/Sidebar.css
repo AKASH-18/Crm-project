@@ -1,12 +1,15 @@
+@import url("../../styles/variables.css");
+
 .sidebar {
   width: 220px;
   min-width: 220px;
-  background: #111;
+  background: var(--dark-gray);
   color: white;
   height: 100vh;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  color: black;
 }
 
 /* LOGO */
@@ -14,6 +17,13 @@
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 20px;
+  height: 10%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.logo > span {
+  color: blue;
 }
 
 /* MENU ITEMS */
@@ -21,13 +31,14 @@
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .sidebar div:hover {
-  background: #333;
+  background: var(--highlight-gray);
 }
 
 /* ACTIVE ITEM */
 .active {
-  background: #444;
+  background: var(--highlight-gray);
 }

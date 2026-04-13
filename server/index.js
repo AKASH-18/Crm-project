@@ -9,7 +9,7 @@ app.use(
   cors({
     origin: "https://crm-project-l3ao.vercel.app",
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 
@@ -53,3 +53,6 @@ app.listen(PORT, async () => {
   console.log(`🚀 Server running on port ${PORT}`);
   await createAdmin();
 });
+
+const timeRoutes = require("./routes/timeRoutes");
+app.use("/api/time", timeRoutes);

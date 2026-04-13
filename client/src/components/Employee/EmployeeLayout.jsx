@@ -19,11 +19,10 @@ function EmployeeLayout({ children }) {
 
   if (path === "/employee-dashboard") {
     headerTitle = (
-      <>
+      <div className="dashboard-header">
         <p>Good Morning</p>
-        <br />
-        {user?.name || "Employee"}
-      </>
+        <h3>{user?.name || "Employee"}</h3>
+      </div>
     );
   } else if (path === "/employee-leads") {
     headerTitle = "Leads";
@@ -60,7 +59,7 @@ function EmployeeLayout({ children }) {
           onClick={() => navigate("/employee-dashboard")}
         >
           <span>
-            <img src="../../../public/employee/chart-2.png" alt="" />
+            <img src="../../assets/employee/chart-2.png" alt="" />
           </span>
           <p>Home</p>
         </div>
@@ -73,7 +72,7 @@ function EmployeeLayout({ children }) {
         >
           <span>
             {" "}
-            <img src="../../../public/employee/vector.png" alt="" />
+            <img src="../../assets/employee/vector.png" alt="" />
           </span>
           <p>Leads</p>
         </div>
@@ -86,7 +85,7 @@ function EmployeeLayout({ children }) {
         >
           <span>
             {" "}
-            <img src="../../../public/employee/calendar-line 1.png" alt="" />
+            <img src="../../assets/employee/calendar-line 1.png" alt="" />
           </span>
           <p>Schedule</p>
         </div>
@@ -99,7 +98,7 @@ function EmployeeLayout({ children }) {
         >
           <span>
             {" "}
-            <img src="../../../public/employee/vector (1).png" alt="" />
+            <img src="../../assets/employee/vector (1).png" alt="" />
           </span>
           <p>Profile</p>
         </div>

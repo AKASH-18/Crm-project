@@ -17,8 +17,7 @@ function EmployeeLeads() {
     console.error("Invalid user data");
   }
 
-  // ✅ FETCH LEADS
-   const fetchLeads = async () => {
+  const fetchLeads = async () => {
     const res = await API.get(`/leads/my/${user._id}`);
     setLeads(res.data);
   };
@@ -27,8 +26,6 @@ function EmployeeLeads() {
     fetchLeads();
   }, []);
 
-  // ✅ UPDATE LEAD
- 
   const updateLead = async (id, data) => {
     await API.put(`/leads/${id}`, data);
     fetchLeads();
@@ -37,7 +34,6 @@ function EmployeeLeads() {
   return (
     <EmployeeLayout title="Leads">
       <div className="lead-page">
-
         <input className="search" placeholder="Search" />
 
         <div className="lead-container">
@@ -65,106 +61,110 @@ function EmployeeLeads() {
                 </div>
 
                 <div className="lead-actions">
-                  <button
-                    onClick={() => setPopup({ type: "type", id: lead._id })}
-                  >
-                    ✏️
-                  </button>
+                  {/* TYPE */}
+                  <div className="action-wrapper">
+                    <button
+                      onClick={() => setPopup({ type: "type", id: lead._id })}
+                    >
+                      ✏️
+                    </button>
 
-                  <button
-                    onClick={() => setPopup({ type: "date", id: lead._id })}
-                  >
-                    ⏰
-                  </button>
+                    {popup?.id === lead._id && popup.type === "type" && (
+                      <div className="popup popup-type">
+                        <h4>Type</h4>
+                        <div className="type-options">
+                          {["Hot", "Warm", "Cold"].map((t) => (
+                            <button
+                              key={t}
+                              onClick={() => {
+                                updateLead(lead._id, { type: t });
+                                setPopup(null);
+                              }}
+                            >
+                              {t}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
-                  <button
-                    onClick={() => setPopup({ type: "status", id: lead._id })}
-                  >
-                    ⬇️
-                  </button>
+                  {/* DATE */}
+                  <div className="action-wrapper">
+                    <button
+                      onClick={() => setPopup({ type: "date", id: lead._id })}
+                    >
+                      ⏰
+                    </button>
+
+                    {popup?.id === lead._id && popup.type === "date" && (
+                      <div className="popup popup-date">
+                        <h4>Date</h4>
+
+                        <input
+                          type="date"
+                          onChange={(e) => setDate(e.target.value)}
+                        />
+                        <input
+                          type="time"
+                          onChange={(e) => setTime(e.target.value)}
+                        />
+
+                        <button
+                          onClick={() => {
+                            if (!date || !time) {
+                              alert("Select date & time");
+                              return;
+                            }
+
+                            updateLead(lead._id, {
+                              scheduledDate: `${date} ${time}`,
+                              type: "Scheduled",
+                            });
+
+                            setPopup(null);
+                          }}
+                        >
+                          Save
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* STATUS */}
+                  <div className="action-wrapper">
+                    <button
+                      onClick={() => setPopup({ type: "status", id: lead._id })}
+                    >
+                      ⬇️
+                    </button>
+
+                    {popup?.id === lead._id && popup.type === "status" && (
+                      <div className="popup popup-status">
+                        <h4>Lead Status</h4>
+
+                        <button disabled>Ongoing</button>
+
+                        <button
+                          onClick={() => {
+                            if (lead.scheduledDate) {
+                              alert("Lead cannot be closed");
+                              return;
+                            }
+
+                            updateLead(lead._id, { status: "Closed" });
+                            setPopup(null);
+                          }}
+                        >
+                          Closed
+                        </button>
+
+                        <button onClick={() => setPopup(null)}>Cancel</button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-
-              {popup?.id === lead._id && (
-                <div className="popup">
-                  {popup.type === "type" && (
-                    <>
-                      <h4>Type</h4>
-                      <div className="type-options">
-                        {["Hot", "Warm", "Cold"].map((t) => (
-                          <button
-                            key={t}
-                            onClick={() => {
-                              updateLead(lead._id, { type: t });
-                              setPopup(null);
-                            }}
-                          >
-                            {t}
-                          </button>
-                        ))}
-                      </div>
-                    </>
-                  )}
-
-                  {popup.type === "date" && (
-                    <>
-                      <h4>Date</h4>
-
-                      <input
-                        type="date"
-                        onChange={(e) => setDate(e.target.value)}
-                      />
-
-                      <input
-                        type="time"
-                        onChange={(e) => setTime(e.target.value)}
-                      />
-
-                      <button
-                        onClick={() => {
-                          if (!date || !time) {
-                            alert("Select date & time");
-                            return;
-                          }
-
-                          updateLead(lead._id, {
-                            scheduledDate: `${date} ${time}`,
-                            type: "Scheduled",
-                          });
-
-                          setPopup(null);
-                        }}
-                      >
-                        Save
-                      </button>
-                    </>
-                  )}
-
-                  {popup.type === "status" && (
-                    <>
-                      <h4>Lead Status</h4>
-
-                      <button disabled>Ongoing</button>
-
-                      <button
-                        onClick={() => {
-                          if (lead.scheduledDate) {
-                            alert("Lead cannot be closed");
-                            return;
-                          }
-
-                          updateLead(lead._id, { status: "Closed" });
-                          setPopup(null);
-                        }}
-                      >
-                        Closed
-                      </button>
-
-                      <button onClick={() => setPopup(null)}>Cancel</button>
-                    </>
-                  )}
-                </div>
-              )}
             </div>
           ))}
         </div>

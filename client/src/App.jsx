@@ -10,10 +10,11 @@ import Dashboard from "./pages/admin/Dashboard";
 import Employees from "./pages/admin/Employees";
 import Leads from "./pages/admin/Leads";
 import Settings from "./pages/admin/Settings";
-import EmployeeHome from "./pages/Employee/EmployeeHome";
+
 import EmployeeLeads from "./pages/Employee/EmployeeLeads";
 import EmployeeSchedule from "./pages/Employee/EmployeeSchedule";
 import EmployeeProfile from "./pages/Employee/EmployeeProfile";
+import EmployeeDashboard from "./pages/Employee/EmployeeDashboard";
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -66,7 +67,7 @@ function App() {
         <Route
           path="/employee-dashboard"
           element={
-            user?.role === "user" ? <EmployeeHome /> : <Navigate to="/" />
+            user?.role === "user" ? <EmployeeDashboard /> : <Navigate to="/" />
           }
         />
 

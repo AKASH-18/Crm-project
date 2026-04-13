@@ -4,8 +4,7 @@
 .lead-page {
   height: 100%;
   background: white;
-  width: 100%;;
-
+  width: 100%;
 }
 /* SEARCH */
 .search {
@@ -116,6 +115,7 @@
 
 /* POPUP */
 .popup {
+  box-sizing: border-box;
   text-align: center;
   color: var(--text-gray);
   font-size: 12px;
@@ -148,7 +148,6 @@
 .cold {
   background: #07eff779;
 }
-
 
 .actions {
   display: flex;
