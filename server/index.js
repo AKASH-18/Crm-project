@@ -1,17 +1,17 @@
+const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 require("dotenv").config();
-
 const app = express();
 
 // Middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://your-vercel-app.vercel.app"],
+    origin: "https://crm-project-l3ao.vercel.app",
     credentials: true,
-  }),
+  })
 );
+app.options("*", cors());
 app.use(express.json());
 
 // Routes
@@ -42,7 +42,7 @@ const createAdmin = async () => {
       password: "admin123",
       role: "admin",
     });
-    
+
     console.log("✅ Default Admin Created");
   }
 };
