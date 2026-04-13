@@ -3,13 +3,13 @@
 .schedule-wrapper {
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
   padding: 20px;
   margin: 0;
   display: flex;
   align-items: stretch;
   flex-direction: column;
   gap: 30px;
+  overflow: visible;
 }
 .schedule-top {
   box-sizing: border-box;
@@ -22,16 +22,18 @@
   padding: 10px;
   justify-content: space-around;
   margin: 0 auto;
+  position: relative;
+  z-index: 100;
 }
 
 .schedule-search {
-  width: 5%;
   padding: 10px;
   border-radius: 10px;
   border: none;
   outline: none;
   background-color: var(--dark-gray);
   width: 80%;
+    color: rgb(0, 0, 0);
 }
 
 .schedule-top > button {
@@ -58,10 +60,50 @@
   width: 100%;
   margin-bottom: 10px;
   color: white;
+  position: relative;
+  z-index: 1;
 }
 
 .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.filter-popup {
+  position: absolute;
+  top: 0; /* push below button */
+  right: 0;
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 150px; /* important */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.filter-select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+
+}
+
+.filter-popup button {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #363636;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  z-index: 1000;
+}
+
+.filter-popup button:hover {
+  background: #363636;
 }

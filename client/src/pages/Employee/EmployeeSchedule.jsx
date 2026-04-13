@@ -1,5 +1,5 @@
 import EmployeeLayout from "../../components/Employee/EmployeeLayout";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import "../../styles/Employee/schedule.css";
 import API from "../../api";
 import { location } from "../../assets/employee/images";
@@ -43,7 +43,20 @@ function EmployeeSchedule() {
           return l.scheduledDate.split(" ")[0] === today;
         })
       : leads;
+  const popupRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (popupRef.current && !popupRef.current.contains(e.target)) {
+        setShowFilter(false);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <EmployeeLayout title="Schedule">
       <div className="schedule-wrapper">
@@ -58,17 +71,17 @@ function EmployeeSchedule() {
           </button>
 
           {showFilter && (
-            <div className="filter-popup">
+            <div className="filter-popup" ref={popupRef}>
               <h4>Filter</h4>
 
               <select
+                className="filter-select"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
               >
                 <option value="today">Today</option>
                 <option value="all">All</option>
               </select>
-
               <button onClick={() => setShowFilter(false)}>Save</button>
             </div>
           )}

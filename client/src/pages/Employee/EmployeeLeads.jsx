@@ -144,23 +144,30 @@ function EmployeeLeads() {
                       <div className="popup popup-status">
                         <h4>Lead Status</h4>
 
-                        <button disabled>Ongoing</button>
+                        <select
+                          value={lead.status}
+                          onChange={(e) => {
+                            const value = e.target.value;
 
-                        <button
-                          onClick={() => {
-                            if (lead.scheduledDate) {
+                            if (lead.scheduledDate && value === "Closed") {
                               alert("Lead cannot be closed");
                               return;
                             }
 
-                            updateLead(lead._id, { status: "Closed" });
-                            setPopup(null);
+                            updateLead(lead._id, { status: value });
+                            setPopup(null); // close after selecting
                           }}
                         >
-                          Closed
-                        </button>
+                          <option value="Ongoing">Ongoing</option>
+                          <option value="Closed">Closed</option>
+                        </select>
 
-                        <button onClick={() => setPopup(null)}>Cancel</button>
+                        <button
+                          className="cancel-btn"
+                          onClick={() => setPopup(null)}
+                        >
+                          Cancel
+                        </button>
                       </div>
                     )}
                   </div>

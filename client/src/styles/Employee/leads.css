@@ -8,14 +8,15 @@
 }
 /* SEARCH */
 .search {
-  width: 100%;
+  display: flex;
+  width: 90%;
   height: 6%;
   box-sizing: border-box;
-  padding: 10px;
   border-radius: 20px;
   border: none;
-  background: var(--right-gray);
-  margin-bottom: 10px;
+  background: var(--dark-gray);
+  margin: 15px auto;
+  align-self: center;
 }
 
 .lead-container {
@@ -109,10 +110,11 @@
 .lead-actions button {
   border: none;
   padding: 6px;
-  border-radius: 50%;
   cursor: pointer;
 }
-
+.action-wrapper {
+  position: relative; /* VERY IMPORTANT */
+}
 /* POPUP */
 .popup {
   box-sizing: border-box;
@@ -173,3 +175,62 @@
 .img {
   width: 100%;
 }
+
+.popup-type {
+  right: 0%;
+  width: 100px;
+}
+
+.popup-type button:first-child {
+  background: #f77307;
+}
+.popup-type button:nth-child(2) {
+  background: #f7d307;
+}
+.popup-type button:nth-child(3) {
+  background: #07eff7;
+}
+
+.popup-date {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: start;
+  box-sizing: border-box;
+  right: 0;
+}
+.popup-date > input {
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.popup-date > button {
+  width: 100%;
+  background: #374151;
+  color: white;
+}
+.popup-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 140px;
+  right: 0;
+}
+
+.popup-status > select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.popup-status > button {
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #374151;
+  color: white;
+}
+
