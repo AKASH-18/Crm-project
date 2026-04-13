@@ -57,7 +57,7 @@ function Dashboard() {
   return (
     <Layout>
       
-        <div className="dashboard">
+        <div className="admin-dashboard">
           {/* 🔥 CARDS */}
           <div className="cards">
             <Card title="Unassigned Leads" value={data.unassigned} />
