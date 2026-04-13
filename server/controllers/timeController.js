@@ -1,4 +1,4 @@
-const TimeLog = require("../modeles/TimeLog");
+const TimeLog = require("../models/TimeLog");
 
 // ✅ CHECK IN / OUT
 exports.toggleCheck = async (req, res) => {
