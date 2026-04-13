@@ -10,7 +10,7 @@ function AdminLogin({ setUser }) {
 
   const login = async () => {
     try {
-      const res = await API.post("/api/users/login", {
+      const res = await API.post("/users/login", {
         email,
         password,
       });

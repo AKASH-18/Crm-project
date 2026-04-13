@@ -18,15 +18,9 @@ function EmployeeLeads() {
   }
 
   // ✅ FETCH LEADS
-  const fetchLeads = async () => {
-    try {
-      if (!user?._id) return;
-
-      const res = await API.get(`/api/leads/my/${user._id}`);
-      setLeads(res.data);
-    } catch (err) {
-      console.log("FETCH ERROR:", err);
-    }
+   const fetchLeads = async () => {
+    const res = await API.get(`/leads/my/${user._id}`);
+    setLeads(res.data);
   };
 
   useEffect(() => {
@@ -34,18 +28,16 @@ function EmployeeLeads() {
   }, []);
 
   // ✅ UPDATE LEAD
+ 
   const updateLead = async (id, data) => {
-    try {
-      await API.put(`/api/leads/${id}`, data);
-      await fetchLeads();
-    } catch (err) {
-      console.log("UPDATE ERROR:", err);
-    }
+    await API.put(`/leads/${id}`, data);
+    fetchLeads();
   };
 
   return (
     <EmployeeLayout title="Leads">
       <div className="lead-page">
+
         <input className="search" placeholder="Search" />
 
         <div className="lead-container">

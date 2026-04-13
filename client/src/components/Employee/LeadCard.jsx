@@ -13,7 +13,7 @@ function LeadCard({ lead, refresh }) {
     try {
       console.log("SENDING:", data);
 
-      await API.put(`/api/leads/${lead._id}`, data);
+      await API.put(`/leads/${lead._id}`, data);
 
       refresh();
     } catch (err) {

@@ -55,49 +55,52 @@ function EmployeeLayout({ children }) {
       <div className="bottom-bar">
         <div
           className={
-            path === "/employee-dashboard"
-              ? "nav-item active"
-              : "nav-item"
+            path === "/employee-dashboard" ? "nav-item active" : "nav-item"
           }
           onClick={() => navigate("/employee-dashboard")}
         >
-          <span>🏠</span>
+          <span>
+            <img src="../../../public/employee/chart-2.png" alt="" />
+          </span>
           <p>Home</p>
         </div>
 
         <div
           className={
-            path === "/employee-leads"
-              ? "nav-item active"
-              : "nav-item"
+            path === "/employee-leads" ? "nav-item active" : "nav-item"
           }
           onClick={() => navigate("/employee-leads")}
         >
-          <span>📋</span>
+          <span>
+            {" "}
+            <img src="../../../public/employee/vector.png" alt="" />
+          </span>
           <p>Leads</p>
         </div>
 
         <div
           className={
-            path === "/employee-schedule"
-              ? "nav-item active"
-              : "nav-item"
+            path === "/employee-schedule" ? "nav-item active" : "nav-item"
           }
           onClick={() => navigate("/employee-schedule")}
         >
-          <span>📅</span>
+          <span>
+            {" "}
+            <img src="../../../public/employee/calendar-line 1.png" alt="" />
+          </span>
           <p>Schedule</p>
         </div>
 
         <div
           className={
-            path === "/employee-profile"
-              ? "nav-item active"
-              : "nav-item"
+            path === "/employee-profile" ? "nav-item active" : "nav-item"
           }
           onClick={() => navigate("/employee-profile")}
         >
-          <span>👤</span>
+          <span>
+            {" "}
+            <img src="../../../public/employee/vector (1).png" alt="" />
+          </span>
           <p>Profile</p>
         </div>
       </div>

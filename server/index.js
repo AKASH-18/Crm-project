@@ -42,7 +42,7 @@ const createAdmin = async () => {
       password: "admin123",
       role: "admin",
     });
-
+    
     console.log("✅ Default Admin Created");
   }
 };

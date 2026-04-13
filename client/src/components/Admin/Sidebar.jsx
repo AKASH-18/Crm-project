@@ -1,38 +1,44 @@
-import { useLocation } from "react-router-dom";
-import "./topbar.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./Sidebar.css";
 
-function Topbar({ search, setSearch }) {
+function Sidebar() {
+  const navigate = useNavigate();
   const location = useLocation();
 
-  const showSearch =
-    location.pathname.includes("/employees") ||
-    location.pathname.includes("/leads");
-
-  let title = "Dashboard";
-
-  if (location.pathname.includes("employees")) title = "Employees";
-  if (location.pathname.includes("leads")) title = "Leads";
-
   return (
-    <div className="topbar">
-      {/* LEFT SIDE */}
-      <div>
-        {!showSearch && <h3>{title}</h3>}
+    <div className="sidebar">
+      {/* LOGO */}
+      <h2 className="logo">CanovaCRM</h2>
 
-        {showSearch && (
-          <input
-            type="text"
-            placeholder="Search..."
-            className="search"
-            value={search || ""}
-            onChange={(e) => {
-              if (setSearch) setSearch(e.target.value);
-            }}
-          />
-        )}
+      {/* MENU */}
+      <div
+        className={location.pathname === "/" ? "active" : ""}
+        onClick={() => navigate("/")}
+      >
+        Dashboard
+      </div>
+
+      <div
+        className={location.pathname === "/leads" ? "active" : ""}
+        onClick={() => navigate("/leads")}
+      >
+        Leads
+      </div>
+
+      <div
+        className={location.pathname === "/employees" ? "active" : ""}
+        onClick={() => navigate("/employees")}
+      >
+        Employees
+      </div>
+      <div
+        className={location.pathname === "/settings" ? "active" : ""}
+        onClick={() => navigate("/settings")}
+      >
+        Settings
       </div>
     </div>
   );
 }
 
-export default Topbar;
+export default Sidebar;

@@ -71,7 +71,7 @@
 .dashboard {
   max-height: 100%;
   padding: 20px;
-  overflow-y: none;
+  overflow-y: hidden;
 }
 
 /* CARDS */

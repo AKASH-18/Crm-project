@@ -3,7 +3,9 @@
 
 .lead-page {
   height: 100%;
-  overflow-y: auto;
+  background: white;
+  width: 100%;;
+
 }
 /* SEARCH */
 .search {

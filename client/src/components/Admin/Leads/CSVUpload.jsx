@@ -28,7 +28,7 @@ function CSVUpload({ onUploadSuccess }) {
     const formData = new FormData();
     formData.append("file", file);
 
-   axios.post(`${API}/api/users/login`, data);
+   axios.post(`${API}/users/login`, data);
 
     setShowModal(false);
     setFile(null);

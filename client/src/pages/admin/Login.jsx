@@ -7,15 +7,11 @@ function Login({ setUser }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const login = async () => {
+   const login = async () => {
     try {
-      const res = await API.post("/api/users/login", {
-        email,
-        password,
-      });
+      const res = await API.post("/users/login", form);
 
       localStorage.setItem("user", JSON.stringify(res.data));
-      setUser(res.data);
 
       // 🔥 redirect based on role
       if (res.data.role === "admin") {

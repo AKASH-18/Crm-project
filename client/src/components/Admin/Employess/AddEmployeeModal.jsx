@@ -19,7 +19,7 @@ function AddEmployeeModal({ show, onClose, refresh }) {
   const submit = async () => {
     try {
       await axios.post(
-        "axios.post(`${import.meta.env.VITE_API_URL}/api/login`, data);",
+        "axios.post(`${import.meta.env.VITE_API_URL}/login`, data);",
         {
           name: form.firstName + " " + form.lastName,
           email: form.email,

@@ -17,11 +17,11 @@ function EmployeeSchedule() {
   }
 
   // ✅ FETCH SCHEDULED LEADS
-  const fetchSchedule = async () => {
+ const fetchSchedule = async () => {
     try {
       if (!user?._id) return;
 
-      const res = await API.get(`/api/leads/schedule/${user._id}`);
+      const res = await API.get(`/leads/schedule/${user._id}`); 
       setLeads(res.data);
     } catch (err) {
       console.log("FETCH ERROR:", err);
@@ -31,6 +31,7 @@ function EmployeeSchedule() {
   useEffect(() => {
     fetchSchedule();
   }, []);
+
 
   // ✅ FILTER LOGIC
   const today = new Date().toISOString().split("T")[0];

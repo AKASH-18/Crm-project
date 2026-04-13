@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
 function Layout({ children }) {
-  // 🔥 ADD SEARCH STATE
   const [search, setSearch] = useState("");
 
   return (
@@ -18,10 +17,7 @@ function Layout({ children }) {
         <Topbar search={search} setSearch={setSearch} />
 
         {/* CONTENT */}
-        <div className="admin-content">
-          {/* 🔥 PASS SEARCH TO CHILDREN (SAFE) */}
-          {typeof children === "function" ? children(search) : children}
-        </div>
+        <div className="admin-content">{children}</div>
       </div>
     </div>
   );

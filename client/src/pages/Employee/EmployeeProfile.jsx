@@ -31,7 +31,7 @@ function EmployeeProfile() {
         return;
       }
 
-      await API.put("/api/users/update-profile", {
+      await API.put("/users/update-profile", {
         name: form.firstName + " " + form.lastName,
         email: form.email,
         password: form.password,
@@ -53,25 +53,38 @@ function EmployeeProfile() {
   return (
     <EmployeeLayout title="Profile">
       <div className="profile-form">
-        <label>First name</label>
-        <input
-          name="firstName"
-          value={form.firstName}
-          onChange={handleChange}
-        />
-
-        <label>Last name</label>
-        <input name="lastName" value={form.lastName} onChange={handleChange} />
-
-        <label>Email</label>
-        <input name="email" value={form.email} onChange={handleChange} />
-
-        <label>Password</label>
-        <input type="password" name="password" onChange={handleChange} />
-
-        <label>Confirm Password</label>
-        <input type="password" name="confirmPassword" onChange={handleChange} />
-
+        <div>
+          <label>First name</label>
+          <input
+            name="firstName"
+            value={form.firstName}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Last name</label>
+          <input
+            name="lastName"
+            value={form.lastName}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Email</label>
+          <input name="email" value={form.email} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" name="password" onChange={handleChange} />
+        </div>
+        <div>
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            onChange={handleChange}
+          />
+        </div>  
         <div className="profile-buttons">
           <button className="save-btn" onClick={save}>
             Save

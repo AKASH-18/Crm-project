@@ -29,7 +29,7 @@ function Settings() {
         return;
       }
 
-      await API.put("/api/users/update-profile", {
+      await API.put("/users/update-profile", {
         email: form.email,
         password: form.password,
         userId: user?._id,
