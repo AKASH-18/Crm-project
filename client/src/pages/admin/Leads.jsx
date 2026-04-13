@@ -5,12 +5,11 @@ import LeadTable from "../../components/Admin/Leads/LeadTable";
 import "../../styles/admin/leads.css";
 import API from "../../api";
 
-function Leads() {
+function Leads({ search }) {
   const [leads, setLeads] = useState([]);
   const [showManual, setShowManual] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 8;
-  const [search, setSearch] = useState("");
 
   const [form, setForm] = useState({
     name: "",
@@ -45,11 +44,14 @@ function Leads() {
     }
   };
 
-  const filteredLeads = leads.filter(
-    (lead) =>
-      (lead.name || "").toLowerCase().includes(search.toLowerCase()) ||
-      (lead.email || "").toLowerCase().includes(search.toLowerCase()),
-  );
+  const filteredLeads = leads.filter((lead) => {
+    const text = (search || "").toLowerCase();
+
+    return (
+      (lead.name || "").toLowerCase().includes(text) ||
+      (lead.email || "").toLowerCase().includes(text)
+    );
+  });
 
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
@@ -58,86 +60,84 @@ function Leads() {
 
   const totalPages = Math.ceil(filteredLeads.length / leadsPerPage);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
   return (
-    <Layout>
-      <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "20px",
-          }}
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <h2>Leads</h2>
+
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button onClick={() => setShowManual(true)}>Add Manually</button>
+
+          <CSVUpload onUploadSuccess={fetchLeads} />
+        </div>
+      </div>
+
+      <LeadTable leads={currentLeads} refresh={fetchLeads} />
+
+      <div className="pagination">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
         >
-          <h2>Leads</h2>
+          Previous
+        </button>
 
-          <div style={{ display: "flex", gap: "10px" }}>
-            <button onClick={() => setShowManual(true)}>Add Manually</button>
-
-            <CSVUpload onUploadSuccess={fetchLeads} />
-          </div>
-        </div>
-
-        <LeadTable leads={currentLeads} refresh={fetchLeads} />
-
-        <div className="pagination">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
           <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
+            key={num}
+            className={currentPage === num ? "active-page" : ""}
+            onClick={() => setCurrentPage(num)}
           >
-            Previous
+            {num}
           </button>
+        ))}
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-            <button
-              key={num}
-              className={currentPage === num ? "active-page" : ""}
-              onClick={() => setCurrentPage(num)}
-            >
-              {num}
-            </button>
-          ))}
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+        >
+          Next
+        </button>
+      </div>
 
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(currentPage + 1)}
-          >
-            Next
-          </button>
-        </div>
+      {showManual && (
+        <div style={overlay}>
+          <div style={modal}>
+            <h3>Add New Lead</h3>
 
-        {showManual && (
-          <div style={overlay}>
-            <div style={modal}>
-              <h3>Add New Lead</h3>
+            <input name="name" placeholder="Name" onChange={handleChange} />
+            <input name="email" placeholder="Email" onChange={handleChange} />
+            <input name="source" placeholder="Source" onChange={handleChange} />
+            <input name="date" placeholder="Date" onChange={handleChange} />
+            <input
+              name="location"
+              placeholder="Location"
+              onChange={handleChange}
+            />
+            <input
+              name="language"
+              placeholder="Preferred Language"
+              onChange={handleChange}
+            />
 
-              <input name="name" placeholder="Name" onChange={handleChange} />
-              <input name="email" placeholder="Email" onChange={handleChange} />
-              <input
-                name="source"
-                placeholder="Source"
-                onChange={handleChange}
-              />
-              <input name="date" placeholder="Date" onChange={handleChange} />
-              <input
-                name="location"
-                placeholder="Location"
-                onChange={handleChange}
-              />
-              <input
-                name="language"
-                placeholder="Preferred Language"
-                onChange={handleChange}
-              />
-
-              <div style={{ marginTop: "10px" }}>
-                <button onClick={handleSubmit}>Save</button>
-                <button onClick={() => setShowManual(false)}>Cancel</button>
-              </div>
+            <div style={{ marginTop: "10px" }}>
+              <button onClick={handleSubmit}>Save</button>
+              <button onClick={() => setShowManual(false)}>Cancel</button>
             </div>
           </div>
-        )}
-      </div>
-    </Layout>
+        </div>
+      )}
+    </div>
   );
 }
 

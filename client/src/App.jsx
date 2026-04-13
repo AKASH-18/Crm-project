@@ -15,6 +15,7 @@ import EmployeeLeads from "./pages/Employee/EmployeeLeads";
 import EmployeeSchedule from "./pages/Employee/EmployeeSchedule";
 import EmployeeProfile from "./pages/Employee/EmployeeProfile";
 import EmployeeDashboard from "./pages/Employee/EmployeeDashboard";
+import Layout from "./components/Admin/Layout";
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -22,7 +23,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 🌐 Landing */}
         <Route
           path="/"
           element={
@@ -52,12 +52,20 @@ function App() {
         />
         <Route
           path="/employees"
-          element={user?.role === "admin" ? <Employees /> : <Navigate to="/" />}
+          element={
+            <Layout>{({ search }) => <Employees search={search} />}</Layout>
+          }
         />
-        <Route
-          path="/leads"
-          element={user?.role === "admin" ? <Leads /> : <Navigate to="/" />}
-        />
+       <Route
+  path="/leads"
+  element={
+    user?.role === "admin" ? (
+      <Layout>{({ search }) => <Leads search={search} />}</Layout>
+    ) : (
+      <Navigate to="/" />
+    )
+  }
+/>
         <Route
           path="/settings"
           element={user?.role === "admin" ? <Settings /> : <Navigate to="/" />}

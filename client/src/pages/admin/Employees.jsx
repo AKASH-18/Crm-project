@@ -4,11 +4,10 @@ import EmployeeTable from "../../components/Admin/Employess/EmployeeTable";
 import AddEmployeeModal from "../../components/Admin/Employess/AddEmployeeModal";
 import API from "../../api";
 
-function Employees() {
+function Employees({ search }) {
   const [users, setUsers] = useState([]);
   const [selected, setSelected] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [search, setSearch] = useState(""); // 🔥 add local search
 
   const fetchUsers = async () => {
     try {
@@ -26,9 +25,7 @@ function Employees() {
   const deleteUser = async (id) => {
     try {
       if (selected.length > 0) {
-        await Promise.all(
-          selected.map((uid) => API.delete(`/users/${uid}`))
-        );
+        await Promise.all(selected.map((uid) => API.delete(`/users/${uid}`)));
       } else {
         await API.delete(`/users/${id}`);
       }
@@ -40,56 +37,49 @@ function Employees() {
     }
   };
 
-  // 🔥 FILTER HERE (no layout dependency)
-  const filteredUsers = users.filter((u) =>
-    u.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredUsers = users.filter((u) => {
+    const text = (search || "").toLowerCase();
 
+    return (
+      u.name.toLowerCase().includes(text) ||
+      u.email.toLowerCase().includes(text)
+    );
+  });
   return (
-    <Layout>
-      <div>
-        <div
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "5px 10px",
+        }}
+      >
+        <h4>Employees</h4>
+
+        <button
+          onClick={() => setShowModal(true)}
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "5px 10px",
+            borderRadius: "10px",
+            padding: "10px 20px",
           }}
         >
-          <h4>Employees</h4>
-
-          <button
-            onClick={() => setShowModal(true)}
-            style={{
-              borderRadius: "10px",
-              padding: "10px 20px",
-            }}
-          >
-            Add Employees
-          </button>
-        </div>
-
-        {/* 🔍 SEARCH */}
-        <input
-          placeholder="Search employees..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{ margin: "10px", padding: "6px" }}
-        />
-
-        <AddEmployeeModal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          refresh={fetchUsers}
-        />
-
-        <EmployeeTable
-          users={filteredUsers}
-          selected={selected}
-          setSelected={setSelected}
-          deleteUser={deleteUser}
-        />
+          Add Employees
+        </button>
       </div>
-    </Layout>
+
+      <AddEmployeeModal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        refresh={fetchUsers}
+      />
+
+      <EmployeeTable
+        users={filteredUsers}
+        selected={selected}
+        setSelected={setSelected}
+        deleteUser={deleteUser}
+      />
+    </div>
   );
 }
 

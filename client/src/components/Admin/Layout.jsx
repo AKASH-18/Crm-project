@@ -17,7 +17,9 @@ function Layout({ children }) {
         <Topbar search={search} setSearch={setSearch} />
 
         {/* CONTENT */}
-        <div className="admin-content">{children}</div>
+        <div className="admin-content">
+          {typeof children === "function" ? children({ search }) : children}
+        </div>
       </div>
     </div>
   );
