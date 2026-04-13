@@ -66,7 +66,7 @@ function EmployeeLeads() {
                     <button
                       onClick={() => setPopup({ type: "type", id: lead._id })}
                     >
-                      ✏️
+                      <img src="../../assets/employee/vector (2).png" alt="" />
                     </button>
 
                     {popup?.id === lead._id && popup.type === "type" && (

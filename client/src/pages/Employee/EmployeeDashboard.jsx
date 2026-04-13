@@ -45,6 +45,7 @@ function EmployeeDashboard() {
   return (
     <EmployeeLayout title="">
       <div className="dashboard">
+        <h3> Timing </h3>
         {/* CHECK IN */}
         <div className="card blue">
           <div>
@@ -57,8 +58,13 @@ function EmployeeDashboard() {
             <h3>{log?.checkOut || "--:--"}</h3>
           </div>
 
-          <button onClick={handleCheck} className="action-btn">
-            {log?.checkOut ? "Done" : log?.checkIn ? "Check Out" : "Check In"}
+          <button
+            onClick={handleCheck}
+            className={`action-btn ${
+              !log?.checkIn ? "red" : log?.checkOut ? "green" : "red"
+            }`}
+          >
+            {!log?.checkIn ? "Check In" : log?.checkOut ? "Done" : "Check Out"}
           </button>
         </div>
 
@@ -82,21 +88,38 @@ function EmployeeDashboard() {
             </h3>
           </div>
 
-          <button onClick={handleBreak} className="action-btn">
-            Take Break
+          <button
+            onClick={handleBreak}
+            className={`action-btn ${
+              log?.breaks?.length > 0 && !log.breaks[log.breaks.length - 1]?.end
+                ? "red"
+                : "green"
+            }`}
+          >
+            Break
           </button>
         </div>
 
         {/* BREAK TABLE */}
-        <div className="break-table">
-          {log?.breaks?.map((b, i) => (
-            <div key={i} className="row">
-              <span>Break {b.start}</span>
-              <span>Ended {b.end || "--"}</span>
-              <span>Date {b.date}</span>
-            </div>
-          ))}
-        </div>
+        <table className="break-table">
+          <thead>
+            <tr>
+              <th>Break</th>
+              <th>Ended</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {log?.breaks?.map((b, i) => (
+              <tr key={i}>
+                <td>{b.start}</td>
+                <td>{b.end || "--"}</td>
+                <td>{b.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
         {/* ACTIVITY */}
         <div className="activity">

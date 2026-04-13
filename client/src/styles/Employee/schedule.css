@@ -1,24 +1,40 @@
 @import url(../variables.css);
 
+.schedule-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 30px;
+}
 .schedule-top {
+  box-sizing: border-box;
   display: flex;
   gap: 20px;
   width: 100%;
   align-items: center;
   justify-content: space-evenly;
+  margin: 40px 10px 20px 10px;
+  padding: 10px;
+  justify-content: space-around;
+  margin: 0 auto;
 }
 
-.schedule-top input {
-  width: 70%;
+.schedule-search {
+  width: 5%;
   padding: 10px;
   border-radius: 10px;
   border: none;
   outline: none;
   background-color: var(--dark-gray);
-  width: 100%;
+  width: 80%;
 }
 
-.schedule-top button {
+.schedule-top > button {
   display: flex;
   position: relative;
   align-items: center;
@@ -28,18 +44,18 @@
   border-radius: 50%;
   background-color: var(--dark-gray);
   border: none;
-  background-color: var(--light-gray);
   color: var(--dark-gray);
   cursor: pointer;
 }
 
-.schedule-card{
+.schedule-card {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
-  background-color: var(--dark-gray);
+  background: var(--primary);
   width: 100%;
   margin-bottom: 10px;
+  color: white;
 }

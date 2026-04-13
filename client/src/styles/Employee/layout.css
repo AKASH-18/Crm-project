@@ -16,15 +16,13 @@
   font-weight: bold;
   border-bottom: 1px solid #ddd;
   height: 15%;
-    display: flex;
+  display: flex;
   flex-direction: column;
   gap: 30px;
-
 }
 .header-top > h2 > span {
   color: #e8e000;
 }
-
 
 /* 📱 CONTENT */
 .page-content {

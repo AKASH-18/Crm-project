@@ -17,11 +17,11 @@ function EmployeeSchedule() {
   }
 
   // ✅ FETCH SCHEDULED LEADS
- const fetchSchedule = async () => {
+  const fetchSchedule = async () => {
     try {
       if (!user?._id) return;
 
-      const res = await API.get(`/leads/schedule/${user._id}`); 
+      const res = await API.get(`/leads/schedule/${user._id}`);
       setLeads(res.data);
     } catch (err) {
       console.log("FETCH ERROR:", err);
@@ -31,7 +31,6 @@ function EmployeeSchedule() {
   useEffect(() => {
     fetchSchedule();
   }, []);
-
 
   // ✅ FILTER LOGIC
   const today = new Date().toISOString().split("T")[0];
@@ -46,61 +45,64 @@ function EmployeeSchedule() {
 
   return (
     <EmployeeLayout title="Schedule">
-      <div className="schedule-top">
-        <input className="search" placeholder="Search" />
+      <div className="schedule-wrapper">
+        <div className="schedule-top">
+          <input className="schedule-search" placeholder="Search" />
 
-        <button
-          className="filter-btn"
-          onClick={() => setShowFilter(!showFilter)}
-        >
-          ⚙️
-        </button>
-
-        {showFilter && (
-          <div className="filter-popup">
-            <h4>Filter</h4>
-
-            <select
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            >
-              <option value="today">Today</option>
-              <option value="all">All</option>
-            </select>
-
-            <button onClick={() => setShowFilter(false)}>Save</button>
-          </div>
-        )}
-      </div>
-
-      <div className="schedule-cards">
-        {filteredLeads.map((lead, index) => (
-          <div
-            key={lead._id}
-            className={`schedule-card ${index === 0 ? "active" : ""}`}
+          <button
+            className="filter-btnschedule"
+            onClick={() => setShowFilter(!showFilter)}
           >
-            <div className="row">
-              <h4>{lead.source}</h4>
-              <span>
-                {lead.scheduledDate
-                  ? lead.scheduledDate.split(" ")[0]
-                  : ""}
-              </span>
-            </div>
+            ⚙️
+          </button>
 
-            <div className="row">
-              <p>{lead.phone || lead.email}</p>
-            </div>
+          {showFilter && (
+            <div className="filter-popup">
+              <h4>Filter</h4>
 
-            <div className="row small">
-              <p>📍 Call</p>
-            </div>
+              <select
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+              >
+                <option value="today">Today</option>
+                <option value="all">All</option>
+              </select>
 
-            <div className="row user">
-              <p>👤 {lead.name}</p>
+              <button onClick={() => setShowFilter(false)}>Save</button>
             </div>
+          )}
+        </div>
+
+        <div className="schedule-cards">
+          <div className="left-schedulecard">
+            {filteredLeads.map((lead, index) => (
+              <div
+                key={lead._id}
+                className={`schedule-card ${index === 0 ? "active" : ""}`}
+              >
+                <div className="row">
+                  <h4>{lead.source}</h4>
+                  <span>
+                    {lead.scheduledDate ? lead.scheduledDate.split(" ")[0] : ""}
+                  </span>
+                </div>
+
+                <div className="row">
+                  <p>{lead.phone || lead.email}</p>
+                </div>
+
+                <div className="row small">
+                  <p>📍 Call</p>
+                </div>
+
+                <div className="row user">
+                  <p>👤 {lead.name}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+       
+        </div>
       </div>
     </EmployeeLayout>
   );

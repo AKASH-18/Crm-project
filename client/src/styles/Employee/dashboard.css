@@ -1,11 +1,14 @@
 .dashboard {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: center;
-
+  overflow: hidden;
 }
-
+.dashboard > h3 {
+  margin-left: -80%;
+}
 .card {
   background: #2d5bff;
   color: rgb(255, 253, 253);
@@ -18,26 +21,38 @@
 }
 
 .action-btn {
-  background: #46e640;
   border: none;
+  padding: 10px;
   border-radius: 10px;
-  padding: 8px;
+  color: white;
+}
+
+/* 🔴 RED */
+.action-btn.red {
+  background: #ff4d4d;
+}
+
+/* 🟢 GREEN */
+.action-btn.green {
+  background: #22c55e;
 }
 
 .break-table {
+  min-width: 90%;
+  min-height: 30%;
   background: #f3f4f6;
   padding: 10px;
   border-radius: 10px;
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
-}
-
 .activity {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-height: 30%;
+  width: 90%;
   background: #eee;
   padding: 12px;
   border-radius: 10px;
+  overflow-y: scroll;
 }
