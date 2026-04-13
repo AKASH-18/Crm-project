@@ -104,13 +104,22 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await require("../models/User").findOne({ email });
+    // 🔍 Debug logs (safe, helpful)
+    console.log("Login attempt:", email, password);
+
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(400).json({ error: "User not found" });
     }
 
-    if (user.password !== password) {
+    // ⚠️ Ensure password exists in DB
+    if (!user.password) {
+      return res.status(400).json({ error: "Password not set for user" });
+    }
+
+    // ✅ Trim to avoid space issues
+    if (user.password.trim() !== password.trim()) {
       return res.status(400).json({ error: "Wrong password" });
     }
 
