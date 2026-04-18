@@ -6,7 +6,7 @@ const app = express();
 const timeRoutes = require("./routes/timeRoutes");
 require("dotenv").config();
 
-// Middleware
+// Middleware for both local and production
 const allowedOrigins = [
   "http://localhost:5173",
   "https://crm-project-l3ao.vercel.app",
