@@ -7,10 +7,22 @@ const timeRoutes = require("./routes/timeRoutes");
 require("dotenv").config();
 
 // Middleware
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://crm-project-l3ao.vercel.app",
+];
 app.use(
   cors({
-    origin: "https://crm-project-l3ao.vercel.app",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 app.use(express.json());

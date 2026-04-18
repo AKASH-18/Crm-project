@@ -38,15 +38,16 @@
 }
 
 .activity {
-  display: flex;
-  flex-direction: column;
   flex: 1;
   background: #f3f4f6;
-  padding: 15px;
-  border-radius: 12px;
-  gap: 20px;
-  padding: 10px;
+  padding: 20px;
+  border-radius: 16px;
+
+  height: 250px; /* fixed height */
+  display: flex;
+  flex-direction: column;
 }
+
 .activity > ul {
   display: flex;
   flex-direction: column;
@@ -130,18 +131,22 @@
 }
 
 /* ACTIVITY */
-.activity {
-  flex: 1;
-  background: #f3f4f6;
-  padding: 20px;
-  border-radius: 16px;
-}
 
 .activity ul {
   margin-top: 10px;
   padding-left: 10px;
+
+  overflow-y: auto; /* scroll */
+  flex: 1; /* take remaining space */
+}
+.activity ul::-webkit-scrollbar {
+  width: 5px;
 }
 
+.activity ul::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 10px;
+}
 /* TABLE */
 
 .table-scroll {

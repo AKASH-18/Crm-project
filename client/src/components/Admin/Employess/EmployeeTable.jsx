@@ -4,7 +4,7 @@ import "../../../styles/admin/employees.css";
 
 function EmployeeTable({ users, selected, setSelected, deleteUser }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 7;
+  const usersPerPage = 8;
   const [selectAll, setSelectAll] = useState(false);
 
   const indexOfLast = currentPage * usersPerPage;

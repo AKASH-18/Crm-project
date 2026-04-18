@@ -56,96 +56,98 @@ function Dashboard() {
 
   return (
     <Layout>
-      
-        <div className="admin-dashboard">
-          {/* 🔥 CARDS */}
-          <div className="cards">
-            <Card title="Unassigned Leads" value={data.unassigned} />
-            <Card title="Assigned This Week" value={data.assignedThisWeek} />
-            <Card title="Active Salespeople" value={data.activeEmployees} />
-            <Card title="Conversion Rate" value={`${data.conversionRate}%`} />
-          </div>
+      <div className="admin-dashboard">
+        {/* 🔥 CARDS */}
+        <div className="cards">
+          <Card title="Unassigned Leads" value={data.unassigned} />
+          <Card title="Assigned This Week" value={data.assignedThisWeek} />
+          <Card title="Active Salespeople" value={data.activeEmployees} />
+          <Card title="Conversion Rate" value={`${data.conversionRate}%`} />
+        </div>
 
-          {/* 🔥 GRAPH + ACTIVITY */}
-          <div className="middle">
-            <div className="graph">
-              <h3>Sale Analytics</h3>
+        {/* 🔥 GRAPH + ACTIVITY */}
+        <div className="middle">
+          <div className="graph">
+            <h3>Sale Analytics</h3>
 
-              <div className="graph-container">
-                <div className="y-axis">
-                  <span>100%</span>
-                  <span>75%</span>
-                  <span>50%</span>
-                  <span>25%</span>
-                  <span>0%</span>
-                </div>
+            <div className="graph-container">
+              <div className="y-axis">
+                <span>100%</span>
+                <span>75%</span>
+                <span>50%</span>
+                <span>25%</span>
+                <span>0%</span>
+              </div>
 
-                <div className="bars">
-                  {graphData.map((g, i) => (
-                    <div key={i} className="bar-wrapper">
-                      <div
-                        className="bar-fill"
-                        style={{ height: `${g.count * 15}px` }}
-                      />
-                      <span>{g.date}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="bars">
+                {graphData.map((g, i) => (
+                  <div key={i} className="bar-wrapper">
+                    <div
+                      className="bar-fill"
+                      style={{ height: `${g.count * 15}px` }}
+                    />
+                    <span>{g.date}</span>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
 
-            <div className="activity">
-              <h3>Recent Activity Feed</h3>
+          <div className="activity">
+            <h3>Recent Activity Feed</h3>
 
-              <ul>
-                {data.activity.map((a, i) => (
+            <ul>
+              {data.activity
+                .slice()
+                .reverse()
+                .slice(0, 7)
+                .map((a, i) => (
                   <li key={i}>• {a}</li>
                 ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="employee-section">
-            <div className="table-scroll">
-              <table className="emp-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Employee ID</th>
-                    <th>Assigned Leads</th>
-                    <th>Closed Leads</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {data.employees.map((e) => (
-                    <tr key={e._id}>
-                      <td>
-                        <div className="emp-info">
-                          <div className="avatar">{e.name?.charAt(0)}</div>
-                          <div>
-                            <p>{e.name}</p>
-                            <small>{e.email}</small>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td>#{e._id.slice(-8)}</td>
-                      <td>{e.assigned}</td>
-                      <td>{e.closed}</td>
-
-                      <td>
-                        <span className="status active">Active</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            </ul>
           </div>
         </div>
-   
+
+        <div className="employee-section">
+          <div className="table-scroll">
+            <table className="emp-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Employee ID</th>
+                  <th>Assigned Leads</th>
+                  <th>Closed Leads</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {data.employees.map((e) => (
+                  <tr key={e._id}>
+                    <td>
+                      <div className="emp-info">
+                        <div className="avatar">{e.name?.charAt(0)}</div>
+                        <div>
+                          <p>{e.name}</p>
+                          <small>{e.email}</small>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>#{e._id.slice(-8)}</td>
+                    <td>{e.assigned}</td>
+                    <td>{e.closed}</td>
+
+                    <td>
+                      <span className="status active">Active</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }

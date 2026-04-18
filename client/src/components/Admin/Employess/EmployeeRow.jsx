@@ -20,7 +20,7 @@ function EmployeeRow({ user, selected, handleSelect, deleteUser }) {
         </div>
       </td>
 
-      <td>#{user._id.slice(-8)}</td>
+      <td>#{user._id.slice(-9)}</td>
       <td>{user.assignedLeads || 0}</td>
       <td>{user.closedLeads || 0}</td>
 

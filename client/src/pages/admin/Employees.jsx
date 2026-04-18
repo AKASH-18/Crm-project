@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "../../components/Admin/Layout";
 import EmployeeTable from "../../components/Admin/Employess/EmployeeTable";
 import AddEmployeeModal from "../../components/Admin/Employess/AddEmployeeModal";
 import API from "../../api";
