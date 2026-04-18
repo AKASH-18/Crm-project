@@ -97,13 +97,9 @@ function Dashboard() {
             <h3>Recent Activity Feed</h3>
 
             <ul>
-              {data.activity
-                .slice()
-                .reverse()
-                .slice(0, 7)
-                .map((a, i) => (
-                  <li key={i}>• {a}</li>
-                ))}
+              {data.activity.slice(0, 7).map((a, i) => (
+                <li key={i}>• {a}</li>
+              ))}
             </ul>
           </div>
         </div>

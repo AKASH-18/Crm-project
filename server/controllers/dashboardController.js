@@ -59,7 +59,7 @@ exports.getDashboardData = async (req, res) => {
     // 📌 RECENT ACTIVITY (last 3)
     const recentLeads = await Lead.find()
       .sort({ updatedAt: -1 })
-      .limit(3)
+      .limit(7)
       .populate("assignedTo", "name");
 
     const activity = recentLeads.map((lead) => {
