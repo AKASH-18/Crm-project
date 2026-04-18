@@ -11,7 +11,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://crm-project-l3ao.vercel.app",
   "https://crm-project-hsurxuruq-akash-18s-projects.vercel.app",
-  "https://crm-project-brown-theta.vercel.app/",
+  "https://crm-project-brown-theta.vercel.app",
 ];
 app.use(
   cors({
