@@ -56,14 +56,14 @@ function Dashboard() {
 
   return (
     <Layout>
-      <div className="admin-dashboard">
-        {/* 🔥 CARDS */}
-        <div className="cards">
-          <Card title="Unassigned Leads" value={data.unassigned} />
-          <Card title="Assigned This Week" value={data.assignedThisWeek} />
-          <Card title="Active Salespeople" value={data.activeEmployees} />
-          <Card title="Conversion Rate" value={`${data.conversionRate}%`} />
-        </div>
+        <div className="admin-dashboard">
+          {/* 🔥 CARDS */}
+          <div className="stats-card">
+            <Card title="Unassigned Leads" value={data.unassigned} />
+            <Card title="Assigned This Week" value={data.assignedThisWeek} />
+            <Card title="Active Salespeople" value={data.activeEmployees} />
+            <Card title="Conversion Rate" value={`${data.conversionRate}%`} />
+          </div>
 
         {/* 🔥 GRAPH + ACTIVITY */}
         <div className="middle">
@@ -93,7 +93,7 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="activity">
+          <div className="admin-activity">
             <h3>Recent Activity Feed</h3>
 
             <ul>
