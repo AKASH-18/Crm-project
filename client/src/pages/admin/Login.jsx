@@ -7,9 +7,12 @@ function Login({ setUser }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-   const login = async () => {
+  const login = async () => {
     try {
-      const res = await API.post("/users/login", form);
+      const res = await API.post("/users/login", {
+        email,
+        password,
+      });
 
       localStorage.setItem("user", JSON.stringify(res.data));
 
@@ -29,10 +32,7 @@ function Login({ setUser }) {
     <div style={{ padding: "50px" }}>
       <h2>Login</h2>
 
-      <input
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
 
       <input
         placeholder="Password"

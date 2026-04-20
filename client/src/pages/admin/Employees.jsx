@@ -10,7 +10,7 @@ function Employees({ search }) {
 
   const fetchUsers = async () => {
     try {
-      const res = await API.get("/users/with-leads"); // 🔥 fixed API
+      const res = await API.get("/users/with-leads"); 
       setUsers(res.data);
     } catch (err) {
       console.log("FETCH ERROR:", err);
