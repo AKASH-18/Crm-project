@@ -104,33 +104,24 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 🔍 Debug logs (safe, helpful)
-    console.log("Login attempt:", email, password);
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password required" });
+    }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      email: email.trim().toLowerCase(),
+    });
 
     if (!user) {
       return res.status(400).json({ error: "User not found" });
     }
 
-    // ⚠️ Ensure password exists in DB
-    if (!user.password) {
-      return res.status(400).json({ error: "Password not set for user" });
-    }
-
-    // ✅ Trim to avoid space issues
     if (user.password.trim() !== password.trim()) {
       return res.status(400).json({ error: "Wrong password" });
     }
 
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    });
+    res.json(user);
   } catch (err) {
-    console.log("LOGIN ERROR:", err);
     res.status(500).json({ error: "Login failed" });
   }
 };
