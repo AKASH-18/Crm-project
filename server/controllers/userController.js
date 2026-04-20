@@ -6,15 +6,18 @@ exports.createUser = async (req, res) => {
   try {
     const { name, email } = req.body;
 
-    const existing = await User.findOne({ email });
+    const cleanEmail = email.trim().toLowerCase();
+
+    const existing = await User.findOne({ email: cleanEmail });
+
     if (existing) {
       return res.status(400).json({ error: "User already exists" });
     }
 
     const user = await User.create({
       name,
-      email,
-      password: email, // default password
+      email: cleanEmail,
+      password: cleanEmail,
       role: "user",
     });
 
@@ -54,7 +57,10 @@ exports.updateProfile = async (req, res) => {
 
     const admin = await User.findOneAndUpdate(
       { role: "admin" },
-      { email, password },
+      {
+        email: email.trim().toLowerCase(),
+        password: password.trim(),
+      },
       { new: true },
     );
 
